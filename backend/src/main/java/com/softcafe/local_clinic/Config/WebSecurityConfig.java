@@ -17,7 +17,7 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeHttpRequests(registry -> registry
                         .requestMatchers("/api/**").permitAll()
-                        .anyRequest().denyAll()
+                        .anyRequest().permitAll()
                 );
         return httpSecurity.build();
     }
