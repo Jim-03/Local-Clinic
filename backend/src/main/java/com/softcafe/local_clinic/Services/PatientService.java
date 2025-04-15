@@ -40,11 +40,7 @@ public class PatientService {
 
         try {
             // Check if the patient data already exists
-            Optional<User> existsByPhone = userRepository.findByPhoneNumber(patient.phone());
-            Optional<User> existsByEmail = userRepository.findByEmailAddress(patient.email());
-            Optional<User> existsByNationalId = userRepository.findByNationalId(patient.nationalId());
-
-            if (existsByEmail.isPresent() || existsByPhone.isPresent() || existsByNationalId.isPresent()) {
+            if (patientExists(patient.email(), patient.phone(), patient.nationalId())) {
                 return Responses.infoResponse(Status.DUPLICATE, "A patient with this data already exists!");
             }
 
@@ -175,5 +171,64 @@ public class PatientService {
             System.err.println("An error has occurred while fetching the patient's data: " + e.getMessage());
             return Responses.dataResponse(Status.ERROR, "An error has occurred!", null);
         }
+    }
+
+    /**
+     * Updates an existing patient's data
+     * @param id The patient's primary key
+     * @param updatedData The patient's new data
+     * @return A Response Entity having a mapped object describing the result as the body
+     */
+    @Transactional
+    public ResponseEntity<Map<String, String>> update(Long id, PatientDTO updatedData) {
+        // Check if the argument is provided
+        if (id == null || id <= 0) {
+            return Responses.infoResponse(Status.REJECTED, "Provide a valid ID!");
+        }
+
+        if (updatedData == null) {
+            return Responses.infoResponse(Status.REJECTED, "Provide the updated data!");
+        }
+
+        try {
+            // Fetch the patient's data
+            Optional<Patient> patient = patientRepository.findById(id);
+
+            // Check if patient exists
+            if (patient == null || patient.isEmpty()) return Responses.infoResponse(Status.NOT_FOUND, "The patient wasn't found!");
+
+            // Check if new data violates unique constraint
+            if (patientExists(updatedData.email(), updatedData.phone(), updatedData.nationalId())) {
+                return Responses.infoResponse(Status.DUPLICATE, "A patient with this data already exists!");
+            }
+
+            // Update the data
+            Patient newData = getPatientData(updatedData);
+
+            // Save the updated data
+            patientRepository.save(newData);
+            return Responses.infoResponse(Status.SUCCESS, "Patient successfully updated");
+        } catch (Exception e) {
+            System.err.println("An error has occurred while updating the patient: " + e.getMessage());
+            return Responses.infoResponse(Status.ERROR, "An error has occurred!");
+        }
+    }
+
+    private boolean patientExists(String email, String phone, String nationalId) {
+        // Check if the new data violates unique constraint
+        Optional<User> exists = Optional.empty();
+
+        // Fetch the user data
+        if (email != null) {
+            exists = userRepository.findByEmailAddress(email);
+        }
+        if (exists.isEmpty() && nationalId != null) {
+            exists = userRepository.findByNationalId(nationalId);
+        }
+        if (exists.isEmpty() && phone != null) {
+            exists = userRepository.findByPhoneNumber(phone);
+        }
+
+        return exists.isPresent();
     }
 }

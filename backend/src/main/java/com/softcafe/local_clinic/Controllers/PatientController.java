@@ -133,4 +133,49 @@ public class PatientController {
             @PathVariable Long id) {
         return service.get(id);
     }
+
+    @Operation(
+            summary = "Updates a patient",
+            description = "Searches for a patient with the provided database id," +
+                    "it then updates the data with the provided request body"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200", description = "Patient updated",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Responses.class))
+            ),
+            @ApiResponse(
+                    responseCode = "400", description = "Invalid/missing id or updated data",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Responses.class))
+            ),
+            @ApiResponse(
+                    responseCode = "404", description = "Patient not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Responses.class))
+            ),
+            @ApiResponse(
+                    responseCode = "500", description = "Server error",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Responses.class))
+            )
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, String>> updatePatient(
+            @RequestBody(
+                    description = "The updated patient data",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = PatientDTO.class))
+            )
+            @Parameter(
+                    name = "id",
+                    description = "The patient's database ID",
+                    example = "1"
+            )
+            @PathVariable Long id,
+            @org.springframework.web.bind.annotation.RequestBody PatientDTO updatedData
+    ) {
+        return service.update(id, updatedData);
+    }
 }
