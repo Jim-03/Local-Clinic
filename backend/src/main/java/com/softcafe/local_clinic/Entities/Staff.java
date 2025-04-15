@@ -36,9 +36,6 @@ public class Staff extends User implements UserDetails{
     @Column(name = "staff_role", length = 30)
     private StaffRole role;
 
-    @Column(name = "staff_id", unique = true)
-    private String staffId;
-
     @Column(name = "department")
     private String department;
 
