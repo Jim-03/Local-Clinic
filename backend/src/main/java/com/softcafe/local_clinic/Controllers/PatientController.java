@@ -178,4 +178,42 @@ public class PatientController {
     ) {
         return service.update(id, updatedData);
     }
+
+    @Operation(
+            summary = "Removes a patient from the system",
+            description = "Takes in the patient's database ID and removes the associated data in the database"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200", description = "Patient deleted",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Responses.class))
+            ),
+            @ApiResponse(
+                    responseCode = "400", description = "Invalid or missing id",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Responses.class))
+            ),
+            @ApiResponse(
+                    responseCode = "404", description = "Patient not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Responses.class))
+            ),
+            @ApiResponse(
+                    responseCode = "500", description = "Server error",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Responses.class))
+            )
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, String>> deletePatient(
+            @Parameter(
+                    name = "id",
+                    description = "The patient's database id",
+                    example = "1"
+            )
+            @PathVariable Long id
+    ) {
+        return service.delete(id);
+    }
 }

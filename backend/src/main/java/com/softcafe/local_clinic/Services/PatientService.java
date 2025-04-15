@@ -231,4 +231,35 @@ public class PatientService {
 
         return exists.isPresent();
     }
+
+    /**
+     * Removes a patient's data from the system
+     * @param id The patient's primary key
+     * @return A Response Entity containing a mapped object body confirming if the patient was deleted
+     */
+    @Transactional
+    public ResponseEntity<Map<String, String>> delete(Long id) {
+        // Check if id is provided and valid
+        if (id == null || id <= 0) {
+            return Responses.infoResponse(Status.REJECTED, "Provide a valid id!");
+        }
+
+        try {
+            // Fetch the patient's data
+            Optional<Patient> patient = patientRepository.findById(id);
+
+            // Check if patient exists
+            if (patient == null || patient.isEmpty()) {
+                return Responses.infoResponse(Status.NOT_FOUND, "Patient wasn't found!");
+            }
+
+            // Delete the patient's data
+            patientRepository.delete(patient.get());
+
+            return Responses.infoResponse(Status.SUCCESS, "Patient successfully deleted!");
+        } catch (Exception e) {
+            System.err.println("An error has occurred while deleting the user: " + e.getMessage());
+            return Responses.infoResponse(Status.ERROR, "An error has occurred!");
+        }
+    }
 }
