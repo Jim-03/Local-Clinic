@@ -24,9 +24,6 @@ public class Patient extends User {
     @Column(name = "allergies")
     private String allergies;
 
-    @Column(name = "existing_conditions")
-    private String existingConditions;
-
     @Column(name = "insurance_provider")
     private String insuranceProvider;
 
