@@ -10,6 +10,7 @@ import com.softcafe.local_clinic.DTO.Patient.PatientDTO;
 import com.softcafe.local_clinic.DTO.Patient.PatientDataDTO;
 import com.softcafe.local_clinic.DTO.Patient.SearchPatientDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -198,18 +199,26 @@ public class PatientService {
             // Check if patient exists
             if (patient == null || patient.isEmpty()) return Responses.infoResponse(Status.NOT_FOUND, "The patient wasn't found!");
 
-            // Check if new data violates unique constraint
-            if (patientExists(updatedData.email(), updatedData.phone(), updatedData.nationalId())) {
-                return Responses.infoResponse(Status.DUPLICATE, "A patient with this data already exists!");
-            }
-
             // Update the data
             Patient newData = getPatientData(updatedData);
 
             // Save the updated data
             patientRepository.save(newData);
             return Responses.infoResponse(Status.SUCCESS, "Patient successfully updated");
-        } catch (Exception e) {
+        } catch (DataIntegrityViolationException e) {
+            Throwable throwable = e.getRootCause();
+            String message = throwable != null ? throwable.getMessage() : e.getMessage();
+
+            if (message != null && message.contains("phone_number")) {
+                return Responses.infoResponse(Status.DUPLICATE, "Phone number is in use!");
+            } else if (message != null && message.contains("email_address")) {
+                return Responses.infoResponse(Status.DUPLICATE, "Email address is in use!");
+            } else if (message != null && message.contains("national_id")) {
+                return Responses.infoResponse(Status.DUPLICATE, "National ID already in use!");
+            }
+            return Responses.infoResponse(Status.DUPLICATE, "Another patient with these details exists!");
+        }
+        catch (Exception e) {
             System.err.println("An error has occurred while updating the patient: " + e.getMessage());
             return Responses.infoResponse(Status.ERROR, "An error has occurred!");
         }
