@@ -63,7 +63,7 @@ public class PatientService {
      * @param patient The patient's
      * @return The patient object
      */
-    private Patient getPatientData(AddPatientDTO patient) {
+    private Patient getPatientData(PatientDTO patient) {
         // Create the patient object
         Patient newPatient = new Patient();
 
