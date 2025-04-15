@@ -142,7 +142,6 @@ public class PatientService {
                 patient.getAddress(),
                 patient.getBloodType(),
                 patient.getAllergies(),
-                patient.getExistingConditions(),
                 patient.getInsuranceProvider(),
                 patient.getInsuranceNumber(),
                 patient.getKinName(),
