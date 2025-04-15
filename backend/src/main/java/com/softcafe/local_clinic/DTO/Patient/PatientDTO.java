@@ -3,7 +3,7 @@ package com.softcafe.local_clinic.DTO.Patient;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "The request body for adding a new patient")
-public record AddPatientDTO(
+public record PatientDTO(
         @Schema(description = "Full legal name", example = "John Doe")
         String fullName,
         @Schema(description = "Date of birth in the format('yyyy-MM-dd", example = "2000-01-01")

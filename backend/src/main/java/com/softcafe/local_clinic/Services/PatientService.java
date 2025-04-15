@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 
-import com.softcafe.local_clinic.DTO.Patient.AddPatientDTO;
+import com.softcafe.local_clinic.DTO.Patient.PatientDTO;
 import com.softcafe.local_clinic.DTO.Patient.PatientDataDTO;
 import com.softcafe.local_clinic.DTO.Patient.SearchPatientDTO;
 import lombok.RequiredArgsConstructor;

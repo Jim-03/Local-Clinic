@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.softcafe.local_clinic.DTO.Patient.AddPatientDTO;
+import com.softcafe.local_clinic.DTO.Patient.PatientDTO;
 import com.softcafe.local_clinic.DTO.Patient.SearchPatientDTO;
 import com.softcafe.local_clinic.Services.PatientService;
 
@@ -54,9 +54,9 @@ public class PatientController {
             @RequestBody(
                     description = "The new patients data",
                     required = true,
-                    content = @Content(schema = @Schema(implementation = AddPatientDTO.class))
+                    content = @Content(schema = @Schema(implementation = PatientDTO.class))
             )
-            @org.springframework.web.bind.annotation.RequestBody AddPatientDTO patientDTO
+            @org.springframework.web.bind.annotation.RequestBody PatientDTO patientDTO
     ) {
         return service.add(patientDTO);
     }
@@ -125,6 +125,7 @@ public class PatientController {
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> getPatient(
             @Parameter(
+                    name = "id",
                     description = "The ID of the patient stored in the database",
                     required = true,
                     example = "12"
