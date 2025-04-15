@@ -2,10 +2,10 @@ package com.softcafe.local_clinic.Controllers;
 
 import java.util.Map;
 
+import com.softcafe.local_clinic.Services.Responses;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.softcafe.local_clinic.DTO.Patient.AddPatientDTO;
 import com.softcafe.local_clinic.DTO.Patient.SearchPatientDTO;
@@ -97,5 +97,39 @@ public class PatientController {
             @org.springframework.web.bind.annotation.RequestBody SearchPatientDTO patientDTO
     ) {
         return service.find(patientDTO);
+    }
+
+    @Operation(description = "Gets the patient's data by the ID provided by the database", summary = "Retrieves patient's data")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200", description = "Patient data found",
+                    content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Responses.class))
+            ),
+            @ApiResponse(
+                    responseCode = "400", description = "Id not provided or value is less or equal to 0",
+                    content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Responses.class))
+            ),
+            @ApiResponse(
+                    responseCode = "404", description = "Patient not found",
+                    content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Responses.class))
+            ),
+            @ApiResponse(
+                    responseCode = "500", description = "Server error",
+                    content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Responses.class))
+            )
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getPatient(
+            @Parameter(
+                    description = "The ID of the patient stored in the database",
+                    required = true,
+                    example = "12"
+            )
+            @PathVariable Long id) {
+        return service.get(id);
     }
 }

@@ -149,4 +149,32 @@ public class PatientService {
                 patient.getKinContact()
         );
     }
+
+    /**
+     * Retrieves a patient's data by their primary key
+     * @param id The primary key
+     * @return A Response Entity containing the patient's data or null in the mapped body
+     */
+    public ResponseEntity<Map<String, Object>> get(Long id) {
+        // Check if ID is provided and valid
+        if (id == null || id <= 0) {
+            return Responses.dataResponse(Status.REJECTED, "Provide a valid ID!", null);
+        }
+
+        try {
+            // Fetch the patient's data
+            Optional<User> patient = userRepository.findById(id);
+
+            // Check if patient exists
+            if (patient.isEmpty()) {
+                return Responses.dataResponse(Status.NOT_FOUND, "Patient not found!", null);
+            }
+
+            // Return the patient's data
+            return Responses.dataResponse(Status.SUCCESS, "Patient found", toDTO(patient));
+        } catch (Exception e) {
+            System.err.println("An error has occurred while fetching the patient's data: " + e.getMessage());
+            return Responses.dataResponse(Status.ERROR, "An error has occurred!", null);
+        }
+    }
 }
