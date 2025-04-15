@@ -2,9 +2,10 @@ package com.softcafe.local_clinic.Services;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Map;
 import java.util.Optional;
 
+import com.softcafe.local_clinic.DTO.APIResponse.APIDataResponseDTO;
+import com.softcafe.local_clinic.DTO.APIResponse.APIInfoResponseDTO;
 import com.softcafe.local_clinic.DTO.Patient.PatientDTO;
 import com.softcafe.local_clinic.DTO.Patient.PatientDataDTO;
 import com.softcafe.local_clinic.DTO.Patient.SearchPatientDTO;
@@ -29,10 +30,10 @@ public class PatientService {
     /**
      * Adds a new user to the database
      * @param patient The new patient's data
-     * @return A Response entity with its appropriate HTTP status code containing a map object as the body
+     * @return A Response entity with a body explaining if the patient was added
      */
     @Transactional
-    public ResponseEntity<Map<String, String>> add(PatientDTO patient) {
+    public ResponseEntity<APIInfoResponseDTO> add(PatientDTO patient) {
         // Check if the patient's data is provided
         if (patient == null) {
             return Responses.infoResponse(Status.REJECTED, "Provide the patient's data!");
@@ -85,9 +86,9 @@ public class PatientService {
      *                   email: String,
      *                   phone: String,
      *                   cardNumber: String
-     * @return A Response Entity containing a mapped object as its body
+     * @return A Response Entity with a body containing the patient's data or null
      */
-    public ResponseEntity<Map<String, Object>> find(SearchPatientDTO patientDTO) {
+    public ResponseEntity<APIDataResponseDTO> find(SearchPatientDTO patientDTO) {
         // Check if any data was provided
         if (patientDTO == null) {
             return Responses.dataResponse(Status.REJECTED, "Provide one identifier", null);
@@ -148,9 +149,9 @@ public class PatientService {
     /**
      * Retrieves a patient's data by their primary key
      * @param id The primary key
-     * @return A Response Entity containing the patient's data or null in the mapped body
+     * @return A Response Entity with a body explaining the methods result and the patient's data or null
      */
-    public ResponseEntity<Map<String, Object>> get(Long id) {
+    public ResponseEntity<APIDataResponseDTO> get(Long id) {
         // Check if ID is provided and valid
         if (id == null || id <= 0) {
             return Responses.dataResponse(Status.REJECTED, "Provide a valid ID!", null);
@@ -177,10 +178,10 @@ public class PatientService {
      * Updates an existing patient's data
      * @param id The patient's primary key
      * @param updatedData The patient's new data
-     * @return A Response Entity having a mapped object describing the result as the body
+     * @return A Response Entity with a body confirming if the patient was updated
      */
     @Transactional
-    public ResponseEntity<Map<String, String>> update(Long id, PatientDTO updatedData) {
+    public ResponseEntity<APIInfoResponseDTO> update(Long id, PatientDTO updatedData) {
         // Check if the argument is provided
         if (id == null || id <= 0) {
             return Responses.infoResponse(Status.REJECTED, "Provide a valid ID!");
@@ -235,10 +236,10 @@ public class PatientService {
     /**
      * Removes a patient's data from the system
      * @param id The patient's primary key
-     * @return A Response Entity containing a mapped object body confirming if the patient was deleted
+     * @return A Response Entity with an object body confirming if the patient was deleted
      */
     @Transactional
-    public ResponseEntity<Map<String, String>> delete(Long id) {
+    public ResponseEntity<APIInfoResponseDTO> delete(Long id) {
         // Check if id is provided and valid
         if (id == null || id <= 0) {
             return Responses.infoResponse(Status.REJECTED, "Provide a valid id!");

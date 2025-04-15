@@ -1,22 +1,18 @@
 package com.softcafe.local_clinic.Services;
 
+import com.softcafe.local_clinic.DTO.APIResponse.APIDataResponseDTO;
+import com.softcafe.local_clinic.DTO.APIResponse.APIInfoResponseDTO;
 import org.springframework.http.ResponseEntity;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Responses {
     /**
      * Creates a Spring Boot Response Entity with an object body
      * @param status The response's success
      * @param message A string information about the process result
-     * @return A response entity containing a map of String to String data type containing the status and message
+     * @return A response entity containing an APIInfoResponseDTO as the body
      */
-    public static ResponseEntity<Map<String, String>> infoResponse(Status status, String message) {
-        Map<String, String> response = new HashMap<>();
-        response.put("status", status.toString());
-        response.put("message", message);
-        return ResponseEntity.status(getStatusCode(status)).body(response);
+    public static ResponseEntity<APIInfoResponseDTO> infoResponse(Status status, String message) {
+        return ResponseEntity.status(getStatusCode(status)).body(new APIInfoResponseDTO(status, message));
     }
 
     /**
@@ -24,14 +20,10 @@ public class Responses {
      * @param status The response's success
      * @param message A string information about the process result
      * @param data Any requested data
-     * @return A spring boot response entity containing a map of the status, message and data as the body
+     * @return A spring boot response entity containing an APIDataResponseDTO as the body
      */
-    public static ResponseEntity<Map<String, Object>> dataResponse(Status status, String message, Object data) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("status", status.toString());
-        response.put("message", message);
-        response.put("data", data);
-        return ResponseEntity.status(getStatusCode(status)).body(response);
+    public static ResponseEntity<APIDataResponseDTO> dataResponse(Status status, String message, Object data) {
+        return ResponseEntity.status(getStatusCode(status)).body(new APIDataResponseDTO(status, message, data));
     }
 
     /**

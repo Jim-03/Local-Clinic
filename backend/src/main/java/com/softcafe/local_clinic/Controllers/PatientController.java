@@ -1,8 +1,7 @@
 package com.softcafe.local_clinic.Controllers;
 
-import java.util.Map;
-
-import com.softcafe.local_clinic.Services.Responses;
+import com.softcafe.local_clinic.DTO.APIResponse.APIDataResponseDTO;
+import com.softcafe.local_clinic.DTO.APIResponse.APIInfoResponseDTO;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,21 +35,21 @@ public class PatientController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "Patient successfully added",
                 content = @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = Map.class))),
+                        schema = @Schema(implementation = APIInfoResponseDTO.class))),
 
         @ApiResponse(responseCode = "400", description = "Invalid input or missing fields",
                 content = @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = Map.class))),
+                        schema = @Schema(implementation = APIInfoResponseDTO.class))),
 
         @ApiResponse(responseCode = "409", description = "Duplicate patient data",
                 content = @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = Map.class))),
+                        schema = @Schema(implementation = APIInfoResponseDTO.class))),
 
         @ApiResponse(responseCode = "500", description = "Server error",
                 content = @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = Map.class)))
+                        schema = @Schema(implementation = APIInfoResponseDTO.class)))
     })
-    public ResponseEntity<Map<String, String>> addPatient(
+    public ResponseEntity<APIInfoResponseDTO> addPatient(
             @RequestBody(
                     description = "The new patients data",
                     required = true,
@@ -69,26 +68,26 @@ public class PatientController {
         @ApiResponse(
                 responseCode = "200", description = "Patient found",
                 content = @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = Map.class))
+                        schema = @Schema(implementation = APIDataResponseDTO.class))
         ),
         @ApiResponse(
                 responseCode = "404", description = "Patient not found",
                 content = @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = Map.class))
+                        schema = @Schema(implementation = APIDataResponseDTO.class))
         ),
         @ApiResponse(
                 responseCode = "400", description = "Missing identifiers",
                 content = @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = Map.class))
+                        schema = @Schema(implementation = APIDataResponseDTO.class))
         ),
         @ApiResponse(
                 responseCode = "500", description = "Server error",
                 content = @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = Map.class))
+                        schema = @Schema(implementation = APIDataResponseDTO.class))
         )
     })
     @PostMapping("/search")
-    public ResponseEntity<Map<String, Object>> getPatient(
+    public ResponseEntity<APIDataResponseDTO> getPatient(
             @RequestBody(
                     description = "The patient's unique identifiers",
                     required = true,
@@ -104,26 +103,26 @@ public class PatientController {
             @ApiResponse(
                     responseCode = "200", description = "Patient data found",
                     content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Responses.class))
+                    schema = @Schema(implementation = APIDataResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "400", description = "Id not provided or value is less or equal to 0",
                     content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Responses.class))
+                    schema = @Schema(implementation = APIDataResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "404", description = "Patient not found",
                     content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Responses.class))
+                    schema = @Schema(implementation = APIDataResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "500", description = "Server error",
                     content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Responses.class))
+                    schema = @Schema(implementation = APIDataResponseDTO.class))
             )
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> getPatient(
+    public ResponseEntity<APIDataResponseDTO> getPatient(
             @Parameter(
                     name = "id",
                     description = "The ID of the patient stored in the database",
@@ -143,26 +142,26 @@ public class PatientController {
             @ApiResponse(
                     responseCode = "200", description = "Patient updated",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Responses.class))
+                            schema = @Schema(implementation = APIInfoResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "400", description = "Invalid/missing id or updated data",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Responses.class))
+                            schema = @Schema(implementation = APIInfoResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "404", description = "Patient not found",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Responses.class))
+                            schema = @Schema(implementation = APIInfoResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "500", description = "Server error",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Responses.class))
+                            schema = @Schema(implementation = APIInfoResponseDTO.class))
             )
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, String>> updatePatient(
+    public ResponseEntity<APIInfoResponseDTO> updatePatient(
             @RequestBody(
                     description = "The updated patient data",
                     required = true,
@@ -187,26 +186,26 @@ public class PatientController {
             @ApiResponse(
                     responseCode = "200", description = "Patient deleted",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Responses.class))
+                            schema = @Schema(implementation = APIInfoResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "400", description = "Invalid or missing id",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Responses.class))
+                            schema = @Schema(implementation = APIInfoResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "404", description = "Patient not found",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Responses.class))
+                            schema = @Schema(implementation = APIInfoResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "500", description = "Server error",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Responses.class))
+                            schema = @Schema(implementation = APIInfoResponseDTO.class))
             )
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, String>> deletePatient(
+    public ResponseEntity<APIInfoResponseDTO> deletePatient(
             @Parameter(
                     name = "id",
                     description = "The patient's database id",
