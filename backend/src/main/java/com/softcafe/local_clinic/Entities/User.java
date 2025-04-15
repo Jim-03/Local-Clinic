@@ -51,7 +51,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    public Gender gender;
+    private Gender gender;
 
     @Column(name = "home_address")
     private String address;
