@@ -27,8 +27,6 @@ public record PatientDataDTO(
         String bloodType,
         @Schema(description = "Allergies", example = "Gluten")
         String allergies,
-        @Schema(description = "Visible conditions", example = "Pale skin")
-        String conditions,
         @Schema(description = "Name of insurance provider", example = "NHIF")
         String insuranceProvider,
         @Schema(description = "Insurance number", example = "NHIF0101JD")
