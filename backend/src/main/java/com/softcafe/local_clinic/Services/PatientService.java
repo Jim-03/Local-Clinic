@@ -32,7 +32,7 @@ public class PatientService {
      * @return A Response entity with its appropriate HTTP status code containing a map object as the body
      */
     @Transactional
-    public ResponseEntity<Map<String, String>> add(AddPatientDTO patient) {
+    public ResponseEntity<Map<String, String>> add(PatientDTO patient) {
         // Check if the patient's data is provided
         if (patient == null) {
             return Responses.infoResponse(Status.REJECTED, "Provide the patient's data!");
