@@ -1,0 +1,125 @@
+* {
+    font-size: 1.2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+  }
+  
+  .loginBackground {
+    width: 70%;
+    height: 70%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.6);
+    display: flex;
+    animation: fadeIn 500ms ease forwards;
+    overflow: hidden;
+    background-color: #fff;
+  }
+  
+  .formSection {
+    width: 50%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .formSection h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+    text-decoration: underline;
+  }
+  
+  .loginForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .notification {
+    width: 80%;
+    margin: 0 auto;
+    padding: 3px;
+    text-align: center;
+    padding: 5px;
+  }
+  
+  .loginForm label {
+    margin-left: 10%;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .inputDiv {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto;
+    width: 80%;
+    background-color: #f1f1f1;
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+  
+  .inputDiv input {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 1rem;
+  }
+  
+  .loginForm button {
+    width: 60%;
+    margin: 1rem auto;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #3478f6;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .loginForm button:hover {
+    background-color: #285fca;
+  }
+  
+  .loginForm .forgot {
+    margin: 0 auto;
+    font-size: 0.9rem;
+    color: #555;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .imageSection {
+    width: 50%;
+  }
+  
+  .loginImage {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.6);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  
