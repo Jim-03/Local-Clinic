@@ -74,8 +74,8 @@ public class PatientService {
         newPatient.setCreatedAt(LocalDateTime.now());
         newPatient.setUpdatedAt(LocalDateTime.now());
 
-        newPatient.setInsuranceProvider(patient.insuranceProvider());
-        newPatient.setInsuranceNumber(patient.insuranceNumber());
+        //newPatient.setInsuranceProvider(patient.insuranceProvider());
+        //newPatient.setInsuranceNumber(patient.insuranceNumber());
         newPatient.setKinName(patient.kinName());
         newPatient.setKinContact(patient.kinContact());
         return newPatient;
@@ -140,8 +140,8 @@ public class PatientService {
                 patient.getAddress(),
                 patient.getBloodType(),
                 patient.getAllergies(),
-                patient.getInsuranceProvider(),
-                patient.getInsuranceNumber(),
+               // patient.getInsuranceProvider(),
+                //patient.getInsuranceNumber(),
                 patient.getKinName(),
                 patient.getKinContact()
         );

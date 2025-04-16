@@ -24,11 +24,13 @@ public class Patient extends User {
     @Column(name = "allergies")
     private String allergies;
 
+    /*
     @Column(name = "insurance_provider")
     private String insuranceProvider;
 
     @Column(name = "insurance_number")
     private String insuranceNumber;
+    */
 
     @Column(name = "next_of_kin_name")
     private String kinName;

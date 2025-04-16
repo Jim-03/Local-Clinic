@@ -27,10 +27,10 @@ public record PatientDataDTO(
         String bloodType,
         @Schema(description = "Allergies", example = "Gluten")
         String allergies,
-        @Schema(description = "Name of insurance provider", example = "NHIF")
+        /*@Schema(description = "Name of insurance provider", example = "NHIF")
         String insuranceProvider,
         @Schema(description = "Insurance number", example = "NHIF0101JD")
-        String insuranceNumber,
+        String insuranceNumber,*/
         @Schema(description = "The name of the next of kin", example = "Jane Doe")
         String kinName,
         @Schema(description = "Next of kin's phone number", example = "0723456789")
