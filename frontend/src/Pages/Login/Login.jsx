@@ -73,9 +73,8 @@ function Login() {
 
         // Redirect to the dashboard if successful
         if (data.status === "SUCCESS")  {
-        sessionStorage.setItem("user", data.data)
-        navigate("/dashboard", {replace: true})
         sessionStorage.setItem("user", JSON.stringify(data.data))
+        navigate("/", {replace: true})
         }
     } catch (error) {
         console.error(error)
