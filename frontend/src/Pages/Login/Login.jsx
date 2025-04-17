@@ -1,6 +1,6 @@
 import { FaUser, FaKey } from "react-icons/fa"
 import styles from "./Login.module.css";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import {parsePhoneNumberFromString} from "libphonenumber-js";
 import validator from "validator"
 import loginImage from "../../assets/Images/login.jpg"
@@ -9,6 +9,11 @@ import { replace, useNavigate } from "react-router-dom";
 function Login() {
   const notification = useRef()
   const navigate = useNavigate()
+
+  // Change the title of the page
+  useEffect(() => {
+    document.title = "Login"
+  })
 
   /**
    * Displays a notification on the UI for 5 seconds
