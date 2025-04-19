@@ -42,7 +42,7 @@ function AddPatient () {
       const data = await response.json();
 
       // Notify the user
-      data.status === 'SUCCESS' ? toast.success(data.message) : toast.error(data.message);
+      data.status === 'CREATED' ? toast.success(data.message) : toast.error(data.message);
     } catch (error) {
       console.error(error);
       toast.error('Connection failed!');
