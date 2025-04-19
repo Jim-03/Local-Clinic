@@ -17,10 +17,10 @@ function AddPatient () {
 
     // Get patient's details
     const fullName = event.target.fullName.value;
-    const dateOfBirth = event.target.dateOfBirth.value;
+    const dob = event.target.dateOfBirth.value;
     const email = event.target.email.value;
-    const phoneNumber = event.target.phoneNumber.value;
-    const idNumber = event.target.idNumber.value;
+    const phone = event.target.phoneNumber.value;
+    const nationalId = event.target.idNumber.value;
     const gender = event.target.gender.value;
     const address = event.target.address.value;
     const kinName = event.target.kinName.value;
