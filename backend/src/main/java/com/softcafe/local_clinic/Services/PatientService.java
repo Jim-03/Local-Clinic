@@ -9,6 +9,7 @@ import com.softcafe.local_clinic.DTO.APIResponse.APIInfoResponseDTO;
 import com.softcafe.local_clinic.DTO.Patient.PatientDTO;
 import com.softcafe.local_clinic.DTO.Patient.PatientDataDTO;
 import com.softcafe.local_clinic.DTO.Patient.SearchPatientDTO;
+import com.softcafe.local_clinic.Entities.Gender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -77,6 +78,8 @@ public class PatientService {
         //newPatient.setInsuranceProvider(patient.insuranceProvider());
         //newPatient.setInsuranceNumber(patient.insuranceNumber());
         newPatient.setKinName(patient.kinName());
+        newPatient.setGender(Gender.valueOf(patient.gender()));
+        newPatient.setNationalId(patient.nationalId());
         newPatient.setKinContact(patient.kinContact());
         return newPatient;
     }
