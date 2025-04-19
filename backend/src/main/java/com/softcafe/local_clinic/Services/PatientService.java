@@ -69,8 +69,8 @@ public class PatientService {
         // Map the data to the object
         newPatient.setFullName(patient.fullName());
         newPatient.setDateOfBirth(LocalDate.parse(patient.dob()));
-        newPatient.setEmailAddress(patient.phone());
-        newPatient.setPhoneNumber(patient.email());
+        newPatient.setEmailAddress(patient.email());
+        newPatient.setPhoneNumber(patient.phone());
         newPatient.setAddress(patient.address());
         newPatient.setCreatedAt(LocalDateTime.now());
         newPatient.setUpdatedAt(LocalDateTime.now());
