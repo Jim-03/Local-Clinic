@@ -28,7 +28,7 @@ function AddPatient () {
     const bloodType = event.target.bloodType.value;
 
     // Validate the data
-    const patient = validData({ fullName, dateOfBirth, email, phoneNumber, idNumber, gender, address, kinName, kinContact, bloodType });
+    const patient = validData({ fullName, dob, email, phone, nationalId, gender, address, kinName, kinContact, bloodType });
     if (!patient) return;
 
     try {
