@@ -1,0 +1,70 @@
+.addPatientForm {
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: scroll;
+}
+
+.inputDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.inputDiv fieldset {
+    background-color: white;
+    width: 40%;
+    margin: 15px;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column  ;
+}
+
+.inputDiv fieldset legend {
+    margin: auto;
+    color: navy;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.input {
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    padding-left: 10px;
+}
+
+.input:focus {
+    outline-width: 1px;
+    outline-color: blue;
+}
+
+.label {
+    margin-top: 20px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.buttonsDiv {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+    width: 70%;
+    margin: 5px auto;
+}
+
+.buttonsDiv button {
+    height: 70px;
+    width: 200px;
+    border-radius: 5px;
+    border: none;
+}
+
+.addButton {
+    background-color: rgb(0, 255, 0);
+}
+
+.resetButton {
+    background-color: rgb(0, 191, 255);
+}
