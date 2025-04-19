@@ -33,7 +33,7 @@ function AddPatient () {
 
     try {
       // Add the patient's data to the system
-      const response = await fetch('/api/patients', {
+      const response = await fetch('http://localhost:8080/api/patient/', {
         credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
