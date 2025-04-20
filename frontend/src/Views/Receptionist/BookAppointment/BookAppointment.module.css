@@ -1,0 +1,103 @@
+.form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(51, 51, 51);
+}
+
+.form h1 {
+  color: rgb(44, 62, 80);
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  border-bottom: 2px solid rgb(52, 152, 219);
+  padding-bottom: 10px;
+}
+
+.patientSection {
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.patientSection h2 {
+  color: rgb(52, 152, 219);
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.patientSection hr {
+  border: 0;
+  height: 1px;
+  background-color: rgb(221, 221, 221);
+  margin-bottom: 20px;
+}
+
+.patientSection label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: rgb(85, 85, 85);
+}
+
+.patientSection div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  background-color: white;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 4px;
+  padding: 0 10px;
+}
+
+.patientSection div svg {
+  color: rgb(52, 152, 219);
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.patientSection input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  font-size: 16px;
+  background: transparent;
+}
+
+.patientSection input:focus {
+  outline: none;
+}
+
+.patientSection div:focus-within {
+  border-color: rgb(52, 152, 219);
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.patientSection button {
+  background-color: rgb(52, 152, 219);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px auto 0;
+  width: 150px;
+}
+
+.patientSection button:hover {
+  background-color: rgb(41, 128, 185);
+}
+
+.patientSection button svg {
+  margin-right: 8px;
+  font-size: 16px;
+}
