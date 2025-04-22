@@ -1,9 +1,14 @@
 .addPatientForm {
-    background-color: rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
     justify-content: center;
     overflow-y: scroll;
+    width: 80%;
+    margin: 20px auto;
+    border: 1px solid rgba(30, 30, 47, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+
 }
 
 .inputDiv {
@@ -16,7 +21,7 @@
     background-color: white;
     width: 40%;
     margin: 15px;
-    border: none;
+    border: 1px solid rgba(30, 30, 47, 0.3);
     border-radius: 10px;
     display: flex;
     flex-direction: column  ;
