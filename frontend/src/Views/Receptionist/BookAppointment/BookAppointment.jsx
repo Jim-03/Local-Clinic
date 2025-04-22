@@ -5,7 +5,7 @@ import { FaAddressCard, FaPhone } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 import toast from 'react-hot-toast';
-import AppointmentForm from "../../../Components/AppointmentForm/AppointmentForm.jsx";
+import AppointmentForm from "../AppointmentForm/AppointmentForm.jsx";
 import validator from "validator"
 
 
