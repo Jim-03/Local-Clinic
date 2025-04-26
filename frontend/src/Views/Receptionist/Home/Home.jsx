@@ -1,5 +1,6 @@
 import styles from "./Home.module.css"
 import {useEffect, useState} from "react";
+import toast from "react-hot-toast";
 import {FaHandshake, FaUser} from "react-icons/fa";
 import {RiNumbersFill} from "react-icons/ri";
 
@@ -10,20 +11,35 @@ function Home({firstName}) {
         fetch("http://localhost:8080/api/appointments/incomplete").
         then(response => response.json()).
         then(data => {
-            setIncompleteAppointments(data.data)
+            if (data.status === "SUCCESS") {
+                setIncompleteAppointments(data.data)
+            } else {
+            setIncompleteAppointments([])
+            toast.error(data.message)
+            }
         })
 
         // Fetch total patients
         fetch("http://localhost:8080/api/patients/total").
         then(response => response.json()).
         then(data => {
+            if (data.status === "SUCCESS") {
             setActivePatients(data.data)
+            } else {
+                setActivePatients(0)
+                toast.error(data.message)
+            }
         })
         // Fetch daily appointments
         fetch("http://localhost:8080/api/appointment/recent/total").
         then(response => response.json()).
         then(data => {
-            setTotalAppointments(data.data)
+            if (data.status === "SUCCESS") {
+                setTotalAppointments(data.data)
+                } else {
+                    setTotalAppointments(0)
+                    toast.error(data.message)
+                }
         })
         // Fetch appointments served today
         const now = new Date()
