@@ -1,0 +1,27 @@
+.background {
+    height: 100vh;
+    background-color: rgb(255, 255, 255, 0.3);
+    animation: fadeIn 500ms ease;
+}
+
+.viewSection {
+    background-color: rgb(247, 250, 252);
+    position: absolute;
+    top: 55%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 83%;
+    height: 87vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    box-shadow: 0 0 10px rgb(30, 30, 47);
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
