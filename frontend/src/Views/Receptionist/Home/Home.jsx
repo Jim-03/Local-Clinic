@@ -55,7 +55,7 @@ function Home({firstName}) {
         then(data => {
             setTotalPatients(data.data)
         })
-    })
+    }, [])
 
 
     const [totalPatients, setTotalPatients] = useState(0)
