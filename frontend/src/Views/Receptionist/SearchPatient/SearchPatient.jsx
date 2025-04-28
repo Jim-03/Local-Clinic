@@ -24,8 +24,8 @@ function SearchPatient () {
           toast.error(data.message);
           return;
         }
-        setTotalPages(data.totalPages);
-        setPatients(data.data);
+        setTotalPages(data.data.totalPages);
+        setPatients(data.data.patients);
       })
       .catch((error) => {
         console.error(error);
@@ -97,7 +97,7 @@ function SearchPatient () {
                 <label htmlFor='fullName'>Name</label>
                 <input type='text' value={patients[0].fullName} id='fullName' />
                 <label htmlFor='dateOfBirth'>Date Of Birth</label>
-                <input type='date' id='dateOfBirth' value={patients[0].dob} />
+                <input type='date' id='dateOfBirth' value={patients[0].dateOfBirth} />
                 <label htmlFor='email'>Email</label>
                 <input type='email' id='email' value={patients[0].email} />
                 <label htmlFor='phone'>Phone</label>
