@@ -20,6 +20,8 @@ public record PatientDTO(
         String insuranceProvider,
         @Schema(description = "Insurance number", example = "NHIF0101JD")
         String insuranceNumber,
+        @Schema(description = "Blood group", example = "B - positive")
+        String bloodType,
         @Schema(description = "The name if the patient's next of kin", example = "Jane Doe")
         String kinName,
         @Schema(description = "The next of kin's phone number", example = "0723456789")

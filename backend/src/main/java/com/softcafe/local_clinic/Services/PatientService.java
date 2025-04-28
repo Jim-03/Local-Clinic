@@ -86,6 +86,7 @@ public class PatientService {
         newPatient.setGender(Gender.valueOf(patient.gender()));
         newPatient.setNationalId(patient.nationalId());
         newPatient.setKinContact(patient.kinContact());
+        newPatient.setBloodType(patient.bloodType());
         return newPatient;
     }
 
