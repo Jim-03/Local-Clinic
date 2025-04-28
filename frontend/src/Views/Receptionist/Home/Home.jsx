@@ -20,7 +20,7 @@ function Home({firstName}) {
         })
 
         // Fetch total patients
-        fetch("http://localhost:8080/api/patients/total").
+        fetch("http://localhost:8080/api/patient/total").
         then(response => response.json()).
         then(data => {
             if (data.status === "SUCCESS") {

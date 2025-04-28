@@ -12,7 +12,7 @@ function SearchPatient () {
 
   useEffect(() => {
     // Fetch the list of all patients
-    fetch('http://localhost:8080/api/patients', {
+    fetch('http://localhost:8080/api/patient/all', {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
