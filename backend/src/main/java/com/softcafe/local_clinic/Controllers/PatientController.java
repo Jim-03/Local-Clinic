@@ -2,6 +2,9 @@ package com.softcafe.local_clinic.Controllers;
 
 import com.softcafe.local_clinic.DTO.APIResponse.APIDataResponseDTO;
 import com.softcafe.local_clinic.DTO.APIResponse.APIInfoResponseDTO;
+import com.softcafe.local_clinic.DTO.APIResponse.Patient.PatientListFound;
+import com.softcafe.local_clinic.DTO.APIResponse.Patient.PatientListNotFound;
+import com.softcafe.local_clinic.DTO.Patient.AllPatients;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -131,6 +134,34 @@ public class PatientController {
             )
             @PathVariable Long id) {
         return service.get(id);
+    }
+
+    @Operation(summary = "Get all patients", description = "Fetches a list of all patients via pagination")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "All patients found",
+            content = @Content(mediaType = "application/json",
+            schema = @Schema(implementation = PatientListFound.class))),
+            @ApiResponse(
+                    responseCode = "400", description = "Incorrect page number",
+                    content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = PatientListNotFound.class))
+            ),
+            @ApiResponse(
+                    responseCode = "404", description = "Patients' list not found",
+                    content = @Content(mediaType = "application/json",
+                    schema =  @Schema(implementation = PatientListNotFound.class))
+            ),
+            @ApiResponse(
+                    responseCode = "500", description = "Server error",
+                    content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = PatientListNotFound.class))
+            )
+    })
+    @PostMapping("/all")
+    public ResponseEntity<APIDataResponseDTO> getAll(
+            @org.springframework.web.bind.annotation.RequestBody AllPatients allPatients
+            ) {
+        return service.getAll(allPatients);
     }
 
     @Operation(

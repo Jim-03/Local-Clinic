@@ -2,16 +2,21 @@ package com.softcafe.local_clinic.Services;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import com.softcafe.local_clinic.DTO.APIResponse.APIDataResponseDTO;
 import com.softcafe.local_clinic.DTO.APIResponse.APIInfoResponseDTO;
+import com.softcafe.local_clinic.DTO.APIResponse.Patient.PatientListFound;
+import com.softcafe.local_clinic.DTO.Patient.AllPatients;
 import com.softcafe.local_clinic.DTO.Patient.PatientDTO;
 import com.softcafe.local_clinic.DTO.Patient.PatientDataDTO;
 import com.softcafe.local_clinic.DTO.Patient.SearchPatientDTO;
 import com.softcafe.local_clinic.Entities.Gender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -175,6 +180,39 @@ public class PatientService {
         } catch (Exception e) {
             System.err.println("An error has occurred while fetching the patient's data: " + e.getMessage());
             return Responses.dataResponse(Status.ERROR, "An error has occurred!", null);
+        }
+    }
+
+    /**
+     * Fetches a list of all patients
+     * @param page The page data
+     * @return A Response entity containing a list of all patients or null
+     */
+    public ResponseEntity<APIDataResponseDTO> getAll(AllPatients page) {
+        // Check if page number is valid
+        if (page.page() == 0) {
+            return Responses.dataResponse(Status.REJECTED, "Provide a valid page number", null);
+        }
+
+        try {
+            // Fetch the list of patients
+            Page<Patient> pages = patientRepository.findAll(PageRequest.of(page.page() - 1, 10));
+            List<PatientDataDTO> patientList = new java.util.ArrayList<>();
+            for (Patient patient : pages.getContent()) {
+                patientList.add(toDTO(Optional.ofNullable(patient)));
+            }
+
+            // Check if list is empty
+            if (patientList.isEmpty()) {
+                return Responses.dataResponse(Status.NOT_FOUND, "Patients' list not found", null);
+            }
+
+            int totalPages = pages.getTotalPages();
+            PatientListFound list = new PatientListFound(Status.SUCCESS, "Patient list found", patientList, totalPages);
+            return Responses.dataResponse(Status.SUCCESS, "Patient list found", list);
+        } catch (Exception e) {
+            System.err.println("An error has occurred while fetching the list of patients: " + e.getMessage());
+            return Responses.dataResponse(Status.ERROR, "An error has occurred", null);
         }
     }
 
