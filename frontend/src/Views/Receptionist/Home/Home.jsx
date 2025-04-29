@@ -59,6 +59,10 @@ function Home({firstName}) {
                 toast.error(data.message)
             }
         })
+        .catch(error => {
+            console.error(error)
+            toast.error("Connection error")
+        })
     }, [])
 
 
