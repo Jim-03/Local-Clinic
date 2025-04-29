@@ -11,12 +11,7 @@ function IncompleteRecord () {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/appointments/incomplete', {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ page })
-    })
+    fetch('http://localhost:8080/api/appointments/incomplete')
       .then((response) => response.json())
       .then((data) => {
         toast(data.message);
