@@ -52,4 +52,47 @@ public class AppointmentController {
     public ResponseEntity<APIDataResponseDTO> getIncomplete() {
         return service.findIncomplete();
     }
+
+    @Operation(summary = "Get by range", description = "Fetches a list of appointments made between two date ranges")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200", description = "The list was found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = AppointmentListFound.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400", description = "Missing start/end date",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(
+                                    implementation = AppointmentListNotFound.class
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500", description = "Server error",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(
+                                    implementation = AppointmentListNotFound.class
+                            )
+                    )
+            )
+    })
+    @PostMapping("/date")
+    public ResponseEntity<APIDataResponseDTO> getByDate(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "An object containing the starting and ending date",
+                    required = true,
+                    content = @Content(
+                            schema = @Schema(implementation = GetByDate.class
+                            )
+                    )
+            )
+            @RequestBody GetByDate date
+            ) {
+        return service.getByDate(date);
+    }
 }
