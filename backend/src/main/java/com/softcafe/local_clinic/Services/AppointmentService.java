@@ -35,4 +35,26 @@ public class AppointmentService {
             return Responses.dataResponse(Status.ERROR, "An error has occurred!", null);
         }
     }
+
+    /**
+     * Retrieves a list of appointments made between two date ranges
+     * @param date A DTO containing a starting date and ending date
+     * @return A Response Entity with a body containing the list of appointments or null
+     */
+    public ResponseEntity<APIDataResponseDTO> getByDate(GetByDate date) {
+        // Check if the dates are provided
+        if (date.start() == null || date.end() == null) {
+            return Responses.dataResponse(Status.REJECTED, "Provide the date ranges", 0);
+        }
+
+        try {
+            // Fetch the number of appointments
+            List<Appointment> appointmentList = repository.findByCreatedAtBetween(date.start(), date.end());
+
+            return Responses.dataResponse(Status.SUCCESS, "List of appointments found", appointmentList);
+        } catch (Exception e) {
+            System.err.println("An error has occurred while fetching the appointments by date range: " + e.getMessage());
+            return Responses.dataResponse(Status.ERROR, "An error has occurred", 0);
+        }
+    }
 }
