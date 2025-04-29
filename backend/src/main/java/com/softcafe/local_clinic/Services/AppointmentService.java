@@ -1,7 +1,9 @@
 package com.softcafe.local_clinic.Services;
 
 import com.softcafe.local_clinic.DTO.APIRequest.Appointment.GetByDate;
+import com.softcafe.local_clinic.DTO.APIRequest.Appointment.GetByHistory;
 import com.softcafe.local_clinic.DTO.APIResponse.APIDataResponseDTO;
+import com.softcafe.local_clinic.DTO.APIResponse.Appointment.AppointmentHistory;
 import com.softcafe.local_clinic.Entities.Appointment;
 import com.softcafe.local_clinic.Entities.AppointmentStatus;
 import com.softcafe.local_clinic.Repositories.AppointmentRepository;
