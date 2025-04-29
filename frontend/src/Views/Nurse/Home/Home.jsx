@@ -11,17 +11,27 @@ function Home() {
   const [incompleteInvestigations, setIncompleteInvestigations] = useState([]);
 
   useEffect(() => {
+    const now = new Date()
     // Fetch the list of reviews
-    fetch("http://localhost:8080/api/vitals/today")
+    fetch("http://localhost:8080/api/vitals/date", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify({
+        start: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0),
+        end: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59),
+        page: 0
+      })
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.status === "SUCCESS") {
           // Filter out complete and incomplete vitals reviews
           setCompleteReviews(
-            data.data.filter((review) => review.status === "COMPLETE")
+            data.data.vitals.filter((review) => review.status === "COMPLETE")
           );
           setIncompleteReviews(
-            data.data.filter((review) => review.status === "INCOMPLETE")
+            data.data.vitals.filter((review) => review.status === "INCOMPLETE")
           );
         } else {
           toast.error(data.message);
