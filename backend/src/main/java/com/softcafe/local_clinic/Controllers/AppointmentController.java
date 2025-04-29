@@ -1,5 +1,6 @@
 package com.softcafe.local_clinic.Controllers;
 
+import com.softcafe.local_clinic.DTO.APIRequest.Appointment.GetByDate;
 import com.softcafe.local_clinic.DTO.APIResponse.APIDataResponseDTO;
 import com.softcafe.local_clinic.DTO.APIResponse.Appointment.AppointmentListFound;
 import com.softcafe.local_clinic.DTO.APIResponse.Appointment.AppointmentListNotFound;
