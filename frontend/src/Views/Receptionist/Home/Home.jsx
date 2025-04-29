@@ -37,16 +37,28 @@ function Home({firstName}) {
         then(response => response.json()).
         then(data => {
             if (data.status === "SUCCESS") {
-            setTotalPatients(data.data)
-            } else {
-                toast.error(data.message)
-            }
+                setTotalAppointments(data.data)
+            } 
         })
         .catch(error => {
             console.error(error)
             toast.error("Connection error")
         })
+        calculateTotalPatients()
     }, [])
+
+    /**
+     * Sets the total number of patients served according to the appointments made
+     */
+    function calculateTotalPatients() {
+        const patients = []
+        totalAppointments.forEach(appointment => {
+            if (!patients.includes(appointment.patient.id)) {
+                patients.push(appointment.patient.id)
+            }
+        })
+        setTotalPatients(patients.length)
+    }
 
 
     const [totalPatients, setTotalPatients] = useState(0)
