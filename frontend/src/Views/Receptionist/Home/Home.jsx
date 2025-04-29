@@ -28,7 +28,7 @@ function Home({firstName}) {
         const now = new Date()
         const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
         const end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 99);
-        fetch("http://localhost:8080/api/appointments", {
+        fetch("http://localhost:8080/api/appointments/date", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             credentials: "include",
