@@ -79,6 +79,45 @@ public class VitalsController {
         return service.getByRecord(id);
     }
 
+    @Operation(summary = "Get by range", description = "Fetches a paginated list of vitals made between a date range")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200", description = "Vitals found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = VitalsListFound.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400", description = "Missing date ranges",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = VitalsNotFoundResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404", description = "Vitals data not found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = VitalsNotFoundResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500", description = "Server error",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = VitalsNotFoundResponse.class)
+                    )
+            )
+    })
+    @PostMapping("/date")
+    public ResponseEntity<APIDataResponseDTO> getByDateRange(
+            @org.springframework.web.bind.annotation.RequestBody GetByDate date
+    ) {
+        System.out.println(date);
+        return service.getByDate(date);
+    }
+
     @Operation(
             summary = "Add vitals",
             description = "Adds new vitals to a record"
