@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -48,4 +50,12 @@ public class Vitals {
     @Column(name = "diastolic_number", nullable = false)
     @Schema(description = "The diastolic number used for the blood pressure", example = "88")
     private int diastolic;
+
+    @Enumerated(EnumType.STRING)
+    @Schema(description = "The completeness of the vitals data", example = "INCOMPLETE")
+    private VitalsStatus status;
+
+    @Column(name = "created_at")
+    @Schema(description = "The date and time the vitals data was created")
+    private LocalDateTime createdAt;
 }
