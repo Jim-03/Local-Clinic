@@ -314,4 +314,19 @@ public class PatientService {
             return Responses.infoResponse(Status.ERROR, "An error has occurred!");
         }
     }
+
+    /**
+     * Retrieves the total number of patients in the system
+     * @return A Response Entity with a body containing the total number of patients
+     */
+    public ResponseEntity<APIDataResponseDTO> totalPatients() {
+        try {
+            // Get the total number of patients
+            long total = patientRepository.count();
+            return Responses.dataResponse(Status.SUCCESS, "Total number found", total);
+        } catch (Exception e) {
+            System.err.println("An error has occurred while fetching the total number of patients: " + e.getMessage());
+            return Responses.dataResponse(Status.ERROR, "An error has occurred!", null);
+        }
+    }
 }

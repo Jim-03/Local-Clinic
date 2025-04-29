@@ -136,6 +136,28 @@ public class PatientController {
         return service.get(id);
     }
 
+    @Operation(summary = "Total patients", description = "Returns the total number of patients in the system")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200", description = "The total number of patients was found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{\"status\": \"SUCCESS\", \"message\": \"Total number found\", \"data\": \"20\"")
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500", description = "Server error",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{\"status\": \"ERROR\", \"message\": \"An error has occurred\", \"data\": \"0\"")
+                    )
+            )
+    })
+    @GetMapping("/total")
+    public ResponseEntity<APIDataResponseDTO> getTotal() {
+        return service.totalPatients();
+    }
+
     @Operation(summary = "Get all patients", description = "Fetches a list of all patients via pagination")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "All patients found",
