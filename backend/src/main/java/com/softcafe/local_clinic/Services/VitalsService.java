@@ -2,6 +2,7 @@ package com.softcafe.local_clinic.Services;
 
 import com.softcafe.local_clinic.DTO.APIResponse.APIDataResponseDTO;
 import com.softcafe.local_clinic.DTO.APIResponse.APIInfoResponseDTO;
+import com.softcafe.local_clinic.DTO.APIResponse.Vitals.PaginatedVitals;
 import com.softcafe.local_clinic.DTO.Vitals.NewVitals;
 import com.softcafe.local_clinic.Entities.Record;
 import com.softcafe.local_clinic.Entities.Vitals;
@@ -9,9 +10,13 @@ import com.softcafe.local_clinic.Repositories.RecordRepository;
 import com.softcafe.local_clinic.Repositories.VitalsRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -216,5 +221,39 @@ public class VitalsService {
         vitals.setRecord(record);
         vitals.setSystolic(dto.systolicNumber());
         return vitals;
+    }
+
+    /**
+     * Fetches a list of vitals records made between a specified range
+     * @param date A dto containing the start/end date and the page
+     * @return A Response Entity with a body containing the paginated list of records or null
+     */
+    public ResponseEntity<APIDataResponseDTO> getByDate(GetByDate date) {
+        if (date.start() == null || date.end() == null) {
+            return Responses.dataResponse(Status.REJECTED, "Provide valid date periods!", null);
+        }
+
+        try {
+            Page<Vitals> vitalsPage;
+
+            if (date.page() == 0) {
+                vitalsPage = vitalsRepository.findByCreatedAtBetween(date.start(), date.end(), Pageable.unpaged());
+            } else {
+                vitalsPage = vitalsRepository.findByCreatedAtBetween(date.start(), date.end(), PageRequest.of(date.page() - 1, 10));
+            }
+
+            List<Vitals> vitalsList = vitalsPage.getContent();
+            int totalPages = vitalsPage.getTotalPages();
+
+            // Check if list is empty
+            if (vitalsList.isEmpty()) {
+                return Responses.dataResponse(Status.NOT_FOUND, "No vitals record made in the specified period!", new PaginatedVitals(vitalsList, totalPages));
+            }
+
+            return Responses.dataResponse(Status.SUCCESS, "Vitals found", vitalsList);
+        } catch (Exception e) {
+            System.err.println("An error has occurred while fetching the list of vitals created today: " + e.getMessage());
+            return Responses.dataResponse(Status.ERROR, "An error occurred!", null);
+        }
     }
 }
