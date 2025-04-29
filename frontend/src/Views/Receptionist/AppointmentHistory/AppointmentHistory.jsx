@@ -18,7 +18,7 @@ function AppointmentHistory () {
 
   // Fetch the list of appointments on mounting
   useEffect(() => {
-    fetch('http://localhost:8080/api/appointments/date', {
+    fetch('http://localhost:8080/api/appointments/history', {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
