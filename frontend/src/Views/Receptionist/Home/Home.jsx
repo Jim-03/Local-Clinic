@@ -102,12 +102,12 @@ function Home({firstName}) {
                         </thead>
                         <tbody>
                             {recentAppointments.map(appointment => 
-                                <td>
-                                    <tr>{appointment.patient.name}</tr>
-                                    <tr>{appointment.doctor.name}</tr>
-                                    <tr>{appointment.time}</tr>
-                                    <tr>{appointment.roomNumber}</tr>
-                                </td>
+                                <tr>
+                                    <td>{appointment.patient.name}</td>
+                                    <td>{appointment.doctor.name}</td>
+                                    <td>{appointment.time}</td>
+                                    <td>{appointment.roomNumber}</td>
+                                </tr>
                             )}
                         </tbody>
                     </table>}
