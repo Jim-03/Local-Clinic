@@ -6,6 +6,8 @@ import com.softcafe.local_clinic.Entities.Appointment;
 import com.softcafe.local_clinic.Entities.AppointmentStatus;
 import com.softcafe.local_clinic.Repositories.AppointmentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +58,39 @@ public class AppointmentService {
         } catch (Exception e) {
             System.err.println("An error has occurred while fetching the appointments by date range: " + e.getMessage());
             return Responses.dataResponse(Status.ERROR, "An error has occurred", 0);
+        }
+    }
+
+    /**
+     * Retrieves a list of appointments made within a specified period
+     * @param history AN object containing the starting, ending date and the page number
+     * @return A Response Entity with a body containing the list of appointments or null
+     */
+    public ResponseEntity<APIDataResponseDTO> getHistory(GetByHistory history) {
+        // validate parameters
+        if (history.start() == null || history.end() == null) {
+            return Responses.dataResponse(Status.REJECTED, "Provide valid date and time ranges!", null);
+        }
+
+        if (history.page() == 0) {
+            return Responses.dataResponse(Status.REJECTED, "Provide a valid page number!", null);
+        }
+
+        try {
+            // Fetch the list
+            Page<Appointment> appointmentPage = repository.findByCreatedAtBetween(history.start(), history.end(), PageRequest.of(history.page() - 1, 10));
+            List<Appointment> appointments = appointmentPage.getContent();
+            // Check if list is empty
+            if (appointments.isEmpty()) {
+                return Responses.dataResponse(Status.NOT_FOUND, "There are no appointments in the specified period!", null);
+            }
+
+            int totalPages = appointmentPage.getTotalPages();
+
+            return Responses.dataResponse(Status.SUCCESS, "Appointment history found", new AppointmentHistory(appointments, totalPages));
+        } catch (Exception e) {
+            System.err.println("An error has occurred while fetching the appointment history: " + e.getMessage());
+            return Responses.dataResponse(Status.ERROR, "An error has occurred!", null);
         }
     }
 }
