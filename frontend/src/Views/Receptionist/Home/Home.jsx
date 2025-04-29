@@ -62,7 +62,7 @@ function Home({firstName}) {
 
 
     const [totalPatients, setTotalPatients] = useState(0)
-    const [totalAppointments, setTotalAppointments] = useState(0)
+    const [totalAppointments, setTotalAppointments] = useState([])
     const [activePatients, setActivePatients] = useState(0)
     const [recentAppointments, setIncompleteAppointments] = useState([])
 
@@ -80,7 +80,7 @@ function Home({firstName}) {
                 </span>
                 <span className={styles.overviewData}>
                     <FaHandshake/>
-                    {totalAppointments} appointments made today
+                    {totalAppointments.length} appointments made today
                 </span>
                 <span className={styles.overviewData}>
                     <RiNumbersFill/>
