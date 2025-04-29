@@ -8,7 +8,7 @@ import styles from './AppointmentHistory.module.css';
  */
 function AppointmentHistory () {
   const [appointmentList, setAppointmentList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [dateRange, setDateRange] = useState({
     start: new Date(),
     end: new Date()
