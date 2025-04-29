@@ -34,8 +34,8 @@ function AppointmentHistory () {
           toast.error(data.message);
           return;
         }
-        setTotalPages(data.totalPages);
-        setAppointmentList(data.appointments);
+        setTotalPages(data.data.totalPages);
+        setAppointmentList(data.data.appointments);
       }).catch(error => {
         console.error(error);
         toast.error('Connection error!');
