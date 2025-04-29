@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-    List<Appointment> findByStatus(AppointmentStatus appointmentStatus);
+    List<Appointment> findByStatusNot(AppointmentStatus appointmentStatus);
 
     List<Appointment> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
     Page<Appointment> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end, Pageable pageable);

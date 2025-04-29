@@ -27,7 +27,7 @@ public class AppointmentService {
     public ResponseEntity<APIDataResponseDTO> findIncomplete() {
         try {
             // Fetch a list of appointments that are incomplete
-            List<Appointment> incompleteAppointments = repository.findByStatus(AppointmentStatus.INCOMPLETE);
+            List<Appointment> incompleteAppointments = repository.findByStatusNot(AppointmentStatus.COMPLETE);
 
             // Check if list is empty
             if (incompleteAppointments.isEmpty()) {
