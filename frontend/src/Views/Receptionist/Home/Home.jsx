@@ -13,9 +13,6 @@ function Home({firstName}) {
         then(data => {
             if (data.status === "SUCCESS") {
                 setIncompleteAppointments(data.data)
-            } else {
-            setIncompleteAppointments([])
-            toast.error(data.message)
             }
         })
 
@@ -25,21 +22,7 @@ function Home({firstName}) {
         then(data => {
             if (data.status === "SUCCESS") {
             setActivePatients(data.data)
-            } else {
-                setActivePatients(0)
-                toast.error(data.message)
             }
-        })
-        // Fetch daily appointments
-        fetch("http://localhost:8080/api/appointment/recent/total").
-        then(response => response.json()).
-        then(data => {
-            if (data.status === "SUCCESS") {
-                setTotalAppointments(data.data)
-                } else {
-                    setTotalAppointments(0)
-                    toast.error(data.message)
-                }
         })
         // Fetch appointments served today
         const now = new Date()
