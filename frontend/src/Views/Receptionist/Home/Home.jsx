@@ -53,7 +53,11 @@ function Home({firstName}) {
         }).
         then(response => response.json()).
         then(data => {
+            if (data.status === "SUCCESS") {
             setTotalPatients(data.data)
+            } else {
+                toast.error(data.message)
+            }
         })
     }, [])
 
