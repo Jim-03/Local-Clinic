@@ -94,4 +94,42 @@ public class AppointmentController {
             ) {
         return service.getByDate(date);
     }
+
+    @Operation(summary = "Appointment history", description = "Fetches a pginated list of appointments made within a range")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200", description = "List found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = AppointmentHistory.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400", description = "Missing date range or invalid page number",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = AppointmentListNotFound.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404", description = "No appointments found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = AppointmentListNotFound.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500", description = "Server error",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = AppointmentListNotFound.class)
+                    )
+            )
+    })
+    @PostMapping("/history")
+    public ResponseEntity<APIDataResponseDTO> getHistory(
+            @RequestBody GetByHistory history
+            ) {
+        return service.getHistory(history);
+    }
 }
