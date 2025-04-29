@@ -156,9 +156,9 @@ function SearchPatient () {
       {
       patients.length > 1
         ? <section className={styles.pageSection}>
-          <button disabled={page <= 1} onClick={() => setPage((prev) => prev - 1)}><FaPlus /></button>
+          <button disabled={page >= totalPages} onClick={() => setPage((prev) => prev + 1)}><FaPlus /></button>
           <p>{page}</p>
-          <button disabled={page === totalPages} onClick={() => setPage((prev) => prev + 1)}><FaMinus /></button>
+          <button disabled={page === 1} onClick={() => setPage((prev) => prev - 1)}><FaMinus /></button>
         </section>
         : null
         }
