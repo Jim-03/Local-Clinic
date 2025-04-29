@@ -1,7 +1,9 @@
 package com.softcafe.local_clinic.Controllers;
 
+import com.softcafe.local_clinic.DTO.APIRequest.Vitals.GetByDate;
 import com.softcafe.local_clinic.DTO.APIResponse.APIDataResponseDTO;
 import com.softcafe.local_clinic.DTO.APIResponse.APIInfoResponseDTO;
+import com.softcafe.local_clinic.DTO.APIResponse.Vitals.VitalsListFound;
 import com.softcafe.local_clinic.DTO.Vitals.NewVitals;
 import com.softcafe.local_clinic.DTO.Vitals.VitalsNotFoundResponse;
 import com.softcafe.local_clinic.DTO.Vitals.VitalsResponse;
