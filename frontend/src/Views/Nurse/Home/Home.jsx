@@ -53,7 +53,7 @@ function Home() {
         toast.error("Connection error");
         console.error(error);
       });
-  });
+  }, [ completeReviews, incompleteReviews, completedInvestigations, incompleteInvestigations,]);
 
   return (
     <div className={styles.homeBackground}>
