@@ -35,5 +35,6 @@ public class Patient extends User{
     private String insuranceNumber;
 
     @Column(name = "blood_type")
+    @Schema(description = "The patient's blood group", example = "A+")
     private String bloodType;
 }
