@@ -34,7 +34,7 @@ public class Staff extends User {
     private Boolean isActive;
 
     @Column(nullable = false)
-    @Schema(description = "The role of the staff member", example = "NURSE")
+    @Schema(description = "The role of the staff member", implementation = Role.class)
     private Role role;
 
     @Column(nullable = false)
