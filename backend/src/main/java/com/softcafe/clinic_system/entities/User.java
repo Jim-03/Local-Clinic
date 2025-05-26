@@ -1,14 +1,22 @@
 package com.softcafe.clinic_system.entities;
 
-import io.swagger.oas.annotations.media.Schema;
-import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Schema(name = "user", description = "The base class for all users of the system")

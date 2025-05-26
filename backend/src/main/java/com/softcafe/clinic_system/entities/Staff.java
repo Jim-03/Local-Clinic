@@ -1,13 +1,16 @@
 package com.softcafe.clinic_system.entities;
 
-import io.swagger.oas.annotations.media.Schema;
+import java.time.LocalDateTime;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.time.LocalDateTime;
 
 @Data
 @SuperBuilder

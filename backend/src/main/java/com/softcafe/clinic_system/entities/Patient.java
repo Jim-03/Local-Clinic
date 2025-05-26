@@ -1,6 +1,6 @@
 package com.softcafe.clinic_system.entities;
 
-import io.swagger.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
