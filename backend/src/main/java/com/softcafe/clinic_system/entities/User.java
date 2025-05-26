@@ -4,15 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -57,7 +49,7 @@ public class User {
     private LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
-    @Schema(description = "The user's gender", example = "MALE")
+    @Schema(description = "The user's gender", implementation = Gender.class)
     private Gender gender;
 
     @Column(name = "profile_image")
