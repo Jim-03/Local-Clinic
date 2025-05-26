@@ -71,4 +71,15 @@ public class User {
     @Column(name = "updated_at", nullable = false)
     @Schema(description = "The date and time the record was last updated", example = "2025-05-24T10:41:56.976249081")
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }
