@@ -29,7 +29,7 @@ public record NewPatient(
         @Schema(description = "The name of the patient's next of kin", example = "Jane Doe")
         String emergencyName,
         @Schema(description = "The name of the insurance provider", example = "SHIF")
-        String insuranceProvide,
+        String insuranceProvider,
         @Schema(description = "The patient's insurance number from the service provider", example = "SH3023")
         String insuranceNumber,
         @Schema(description = "The patient's blood group", example = "A+")
