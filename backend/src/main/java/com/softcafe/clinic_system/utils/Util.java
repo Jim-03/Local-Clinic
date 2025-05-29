@@ -73,6 +73,9 @@ public class Util {
             return "insurance number";
         }
 
+        if (message.contains("username")) {
+            return "username";
+        }
         return null;
     }
 
