@@ -92,50 +92,6 @@ public class PatientService {
     }
 
     /**
-     * Retrieves a patient's details by their email address
-     * @param email Email address
-     * @return The patient's data
-     * @throws ResponseStatusException BAD_REQUEST In case of invalid email address
-     * @throws ResponseStatusException NOT_FOUND In case of missing patient data
-     */
-    public PatientDto getByEmail(String email) {
-        if (!Util.isValidEmail(email)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide a valid email address!");
-        }
-        return PatientUtil.toDto(
-                patientRepository.findByEmail(email)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found")));
-    }
-
-    /**
-     * Retrieves a patient's details by their phone number
-     * @param phone Phone number
-     * @return The patient's data
-     * @throws ResponseStatusException BAD_REQUEST In case of invalid phone number
-     * @throws ResponseStatusException NOT_FOUND In case of missing patient data
-     */
-    public PatientDto getByPhone(String phone) {
-        if (!Util.isValidPhone(phone)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide a valid phone number!");
-        }
-        return PatientUtil.toDto(
-                patientRepository.findByPhone(phone)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found")));
-    }
-
-    /**
-     * Retrieves a patient's details by their insurance number
-     * @param insuranceNumber Insurance number
-     * @return The patient's data
-     * @throws ResponseStatusException NOT_FOUND In case of missing patient data
-     */
-    public PatientDto getByInsuranceNumber(String insuranceNumber) {
-        return PatientUtil.toDto(
-                patientRepository.findByInsuranceNumber(insuranceNumber)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found")));
-    }
-
-    /**
      * Updates an existing patient's data
      * @param id The patient's primary key
      * @param newData The patient's new data
@@ -188,5 +144,48 @@ public class PatientService {
 
         patientRepository.delete(patient);
         log.info("Patient with ID: {} was deleted", id);
+    }
+
+    /**
+     * Fetches a patient's data
+     * @param email An optional email address
+     * @param phone An optional phone number
+     * @param nid An optional nation ID card number
+     * @param inn An optional insurance number
+     * @return The patient's data or null
+     * @throws ResponseStatusException BAD_REQUEST in case of null identifiers
+     * @throws ResponseStatusException NOT_FOUND in case of missing patient data
+     */
+    public PatientDto get(String email, String phone, String nid, String inn) {
+        // Check if all parameters are null
+        if (email == null && phone == null && nid == null && inn == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide at least one identifier!");
+        }
+
+            PatientDto dto = null;
+
+            if (email != null) {
+                if (Util.isValidEmail(email)) {
+                    dto = PatientUtil.toDto(patientRepository.findByEmail(email).get());
+                } else {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide a valid email address!");
+                }
+            } else if (dto == null && phone != null) {
+                if (Util.isValidPhone(phone)) {
+                    dto = PatientUtil.toDto(patientRepository.findByPhone(phone).get());
+                } else {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide a valid phone number!");
+                }
+            } else if (dto == null && nid != null) {
+                dto = PatientUtil.toDto(patientRepository.findByNationalId(nid).get());
+            } else {
+                dto = PatientUtil.toDto(patientRepository.findByInsuranceNumber(inn).get());
+            }
+
+            if (dto == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The specified patient wasn't found!");
+            }
+
+            return dto;
     }
 }
