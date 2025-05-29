@@ -31,7 +31,7 @@ public record NewStaff(
         @Schema(description = "A string password", example = "Th1sI54PAs5W0R!D")
         String password,
         @Schema(description = "The user's availability", example = "true")
-        String isActive,
+        Boolean isActive,
         @Schema(description = "The role of the staff member", implementation = Role.class)
         Role role,
         @Schema(description = "The last date and time the account was accessed", example = "2025-05-24T10:41:56.976249081")

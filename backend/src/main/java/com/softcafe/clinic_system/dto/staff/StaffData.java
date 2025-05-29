@@ -4,7 +4,6 @@ import com.softcafe.clinic_system.entities.Gender;
 import com.softcafe.clinic_system.entities.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -26,10 +25,10 @@ public record StaffData(
         LocalDate dateOfBirth,
         @Schema(description = "The staff's gender", implementation = Gender.class)
         Gender gender,
-        @Schema(description = "The staff's profile image", implementation = File.class)
-        File image,
+        @Schema(description = "The staff's profile image", example = "pic345.jpg")
+        String image,
         @Schema(description = "The user's availability", example = "true")
-        String isActive,
+        Boolean isActive,
         @Schema(description = "The role of the staff member", implementation = Role.class)
         Role role,
         @Schema(description = "The last date and time the account was accessed", example = "2025-05-24T10:41:56.976249081")
