@@ -10,6 +10,7 @@ public class Util {
 
     /**
      * Checks if the string passed is an email
+     *
      * @param email The suspected email string
      * @return true if an email, false otherwise
      */
@@ -21,6 +22,7 @@ public class Util {
 
     /**
      * Checks if the string provided is a phone number
+     *
      * @param phone The suspected phone number string
      * @return true if valid, false otherwise
      */
@@ -32,6 +34,7 @@ public class Util {
 
     /**
      * Changes the casing of a sentence to a Word Case
+     *
      * @param sentence Sentence string
      * @return A Word Cased string
      */
@@ -54,6 +57,7 @@ public class Util {
 
     /**
      * Checks what kind of violation has occurred
+     *
      * @param e The data integrity violation exception
      * @return A string with the violated field or null
      */
@@ -81,12 +85,25 @@ public class Util {
 
     /**
      * Checks if the ID is provided and is correct
+     *
      * @param id The Primary Key
      * @throws ResponseStatusException BAD_REQUEST In case of invalid ID
      */
     public static void validateId(Long id) {
         if (id == null || id <= 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide a valid ID!");
+        }
+    }
+
+    /**
+     * Checks if the page provided is valid
+     *
+     * @param page Page number
+     * @throws ResponseStatusException BAD_REQUEST In case of an invalid page number
+     */
+    public static void validatePage(int page) {
+        if (page <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide a valid page number!");
         }
     }
 }
