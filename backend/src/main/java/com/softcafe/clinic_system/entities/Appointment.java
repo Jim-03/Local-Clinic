@@ -41,4 +41,15 @@ public class Appointment {
     @Column(name = "updated_at")
     @Schema(description = "The date and time last updated", example = "2025-05-24T10:41:56.976249081")
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    private void create() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    private void update() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }
