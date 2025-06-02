@@ -28,7 +28,7 @@ public record StaffData(
         @Schema(description = "The staff's profile image", example = "pic345.jpg")
         String image,
         @Schema(description = "The user's availability", example = "true")
-        Boolean isActive,
+        com.softcafe.clinic_system.entities.StaffStatus isActive,
         @Schema(description = "The role of the staff member", implementation = Role.class)
         Role role,
         @Schema(description = "The last date and time the account was accessed", example = "2025-05-24T10:41:56.976249081")

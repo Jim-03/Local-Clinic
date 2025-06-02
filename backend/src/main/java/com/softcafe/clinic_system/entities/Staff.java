@@ -3,9 +3,7 @@ package com.softcafe.clinic_system.entities;
 import java.time.LocalDateTime;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,9 +27,10 @@ public class Staff extends User {
     @Schema(description = "A hashed string password", example = "Th1sI54PAs5W0R!D")
     private String password;
 
-    @Column(name = "is_active")
-    @Schema(description = "The user's availability", example = "true")
-    private Boolean isActive;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status")
+    @Schema(description = "The user's availability", implementation = StaffStatus.class)
+    private StaffStatus status;
 
     @Column(nullable = false)
     @Schema(description = "The role of the staff member", implementation = Role.class)

@@ -2,6 +2,7 @@ package com.softcafe.clinic_system.dto.staff;
 
 import com.softcafe.clinic_system.entities.Gender;
 import com.softcafe.clinic_system.entities.Role;
+import com.softcafe.clinic_system.entities.StaffStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.File;
@@ -31,7 +32,7 @@ public record NewStaff(
         @Schema(description = "A string password", example = "Th1sI54PAs5W0R!D")
         String password,
         @Schema(description = "The user's availability", example = "true")
-        Boolean isActive,
+        StaffStatus staffStatus,
         @Schema(description = "The role of the staff member", implementation = Role.class)
         Role role,
         @Schema(description = "The last date and time the account was accessed", example = "2025-05-24T10:41:56.976249081")

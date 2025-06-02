@@ -3,6 +3,7 @@ package com.softcafe.clinic_system.utils;
 import com.softcafe.clinic_system.dto.staff.NewStaff;
 import com.softcafe.clinic_system.dto.staff.StaffData;
 import com.softcafe.clinic_system.entities.Staff;
+import com.softcafe.clinic_system.entities.StaffStatus;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -87,7 +88,7 @@ public class StaffUtil {
         staff.setPassword(dto.password());
         staff.setRole(dto.role());
         staff.setLastLogin(LocalDateTime.now());
-        staff.setIsActive(null);
+        staff.setStatus(StaffStatus.OFF);
         return staff;
     }
 
@@ -107,7 +108,7 @@ public class StaffUtil {
                 staff.getDateOfBirth(),
                 staff.getGender(),
                 staff.getImage(),
-                staff.getIsActive(),
+                staff.getStatus(),
                 staff.getRole(),
                 staff.getLastLogin(),
                 staff.getCreatedAt(),
@@ -135,6 +136,6 @@ public class StaffUtil {
         oldData.setPassword(newData.password());
         oldData.setRole(newData.role());
         oldData.setLastLogin(LocalDateTime.now());
-        oldData.setIsActive(newData.isActive());
+        oldData.setStatus(newData.staffStatus());
     }
 }
