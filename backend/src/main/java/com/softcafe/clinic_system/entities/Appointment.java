@@ -1,5 +1,7 @@
 package com.softcafe.clinic_system.entities;
 
+import com.softcafe.clinic_system.dto.patient.PatientDto;
+import com.softcafe.clinic_system.dto.staff.StaffData;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,12 +24,12 @@ public class Appointment {
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
-    @Schema(description = "Patient's details", implementation = Patient.class)
+    @Schema(description = "Patient's details", implementation = PatientDto.class)
     private Patient patient;
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")
-    @Schema(description = "Doctor's details")
+    @Schema(description = "Doctor's details", implementation = StaffData.class)
     private Staff doctor;
 
     @Column
