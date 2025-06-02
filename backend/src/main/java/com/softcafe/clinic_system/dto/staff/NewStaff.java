@@ -31,7 +31,7 @@ public record NewStaff(
         String username,
         @Schema(description = "A string password", example = "Th1sI54PAs5W0R!D")
         String password,
-        @Schema(description = "The user's availability", example = "true")
+        @Schema(description = "The user's availability", implementation = StaffStatus.class)
         StaffStatus staffStatus,
         @Schema(description = "The role of the staff member", implementation = Role.class)
         Role role,
