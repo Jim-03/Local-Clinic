@@ -77,6 +77,7 @@ public class PatientService {
             // Validate the data
             PatientUtil.validate(dto);
             Patient patient = patientRepository.save(PatientUtil.toPatient(dto));
+            patientRepository.flush();
             log.info("A new patient with ID: {} has been added", patient.getId());
             return PatientUtil.toDto(patient);
         } catch (DataIntegrityViolationException e) { // Handle errors related to constraints (unique constraint)
