@@ -282,6 +282,7 @@ public class RecordController {
             @PathVariable @NotNull(message = "Provide the record's ID!")
             @Min(value = 1, message = "ID should be at least 1!") Long id
     ) {
+        recordService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
