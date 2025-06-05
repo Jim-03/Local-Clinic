@@ -204,10 +204,7 @@ public class PatientController {
     @Operation(summary = "Deletes a patient")
     @ApiResponses({
             @ApiResponse(
-                    responseCode = "204", description = "Patient successfully deleted",
-                    content = @Content(
-                            mediaType = "application/json"
-                    )
+                    responseCode = "204", description = "Patient successfully deleted"
             ),
             @ApiResponse(
                     responseCode = "400", description = "Invalid or missing id",

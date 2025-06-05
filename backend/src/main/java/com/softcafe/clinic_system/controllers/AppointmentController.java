@@ -266,11 +266,7 @@ public class AppointmentController {
     @Operation(summary = "Delete appointment")
     @ApiResponses({
             @ApiResponse(
-                    responseCode = "204", description = "Appointment deleted successfully",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = AppointmentData.class)
-                    )
+                    responseCode = "204", description = "Appointment deleted successfully"
             ),
             @ApiResponse(
                     responseCode = "400", description = "Missing or invalid  ID",
