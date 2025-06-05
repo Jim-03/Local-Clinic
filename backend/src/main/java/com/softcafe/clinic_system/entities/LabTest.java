@@ -23,7 +23,7 @@ public class LabTest {
     @Schema(description = "Primary key", example = "1")
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "record_id")
     @Schema(description = "Record details", implementation = Record.class)
     private Record record;
