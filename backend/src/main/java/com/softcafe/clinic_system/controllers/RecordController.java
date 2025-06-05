@@ -277,7 +277,7 @@ public class RecordController {
 
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(
+    public ResponseEntity<Void> delete(
             @Parameter(description = "Record's primary key", example = "1", required = true)
             @PathVariable @NotNull(message = "Provide the record's ID!")
             @Min(value = 1, message = "ID should be at least 1!") Long id
