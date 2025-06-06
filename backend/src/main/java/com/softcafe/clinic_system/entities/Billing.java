@@ -23,7 +23,7 @@ public class Billing {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "patient_id", nullable = false)
     @Schema(description = "Patient's details", implementation = Patient.class)
     private Patient patient;
 
