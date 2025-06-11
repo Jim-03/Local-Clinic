@@ -97,7 +97,7 @@ public class BillingController {
                     )
             )
     })
-    @GetMapping("/status")
+    @GetMapping("/method")
     public ResponseEntity<BillList> getByMethod(
             @Parameter(description = "Payment method to search for", example = "cash")
             @NotNull(message = "Provide the payment method!")
