@@ -13,6 +13,7 @@ public class WebSecConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(registry ->
                         registry.anyRequest().permitAll()
                 )
