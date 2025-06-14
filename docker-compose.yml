@@ -3,6 +3,8 @@ services:
     ports:
       - "3000:3000"
     build: ./frontend
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
 
   backend:
     ports:
@@ -29,5 +31,5 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
-    ports:
-      - "5433:5432"
+      ports:
+        - "5433:5432"
