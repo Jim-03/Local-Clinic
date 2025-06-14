@@ -2,6 +2,7 @@ package com.softcafe.clinic_system.services;
 
 import com.softcafe.clinic_system.dto.staff.ListOfStaff;
 import com.softcafe.clinic_system.dto.staff.NewStaff;
+import com.softcafe.clinic_system.dto.staff.StaffCredentials;
 import com.softcafe.clinic_system.dto.staff.StaffData;
 import com.softcafe.clinic_system.entities.Role;
 import com.softcafe.clinic_system.entities.Staff;
@@ -133,7 +134,39 @@ public class StaffService {
         return new ListOfStaff(totalPages, staffDataList);
     }
 
-    // TODO: JWT authentication
+    /**
+     * Allows user to access their data
+     *
+     * @param credentials The user's account details
+     * @return Account data
+     * @throws ResponseStatusException: BAD_REQUEST In case of missing credential data
+     *                                  NOT_FOUND In case the account wasn't found
+     *                                  FORBIDDEN In case of incorrect password
+     */
+    public StaffData authenticate(StaffCredentials credentials) {
+        // Check if at least one identifier is provided
+        if (credentials.username() == null && credentials.email() == null && credentials.phone() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide at least one identifier!");
+        }
+
+        if (credentials.password() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide the password to your account!");
+        }
+
+
+        // Fetch the account
+        Staff staff = staffRepository.findByUsernameOrPhoneOrEmail(credentials.username(), credentials.phone(), credentials.email())
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found!"));
+
+        // TODO: JWT authentication
+        // Verify the password
+        if (!BCrypt.checkpw(credentials.password(), staff.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Incorrect password!");
+        }
+
+        return StaffUtil.toDto(staff);
+    }
 
     /**
      * Updates an existing staff member's data

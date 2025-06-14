@@ -1,9 +1,6 @@
 package com.softcafe.clinic_system.controllers;
 
-import com.softcafe.clinic_system.dto.staff.ListOfStaff;
-import com.softcafe.clinic_system.dto.staff.NewStaff;
-import com.softcafe.clinic_system.dto.staff.StaffData;
-import com.softcafe.clinic_system.dto.staff.UpdateStaff;
+import com.softcafe.clinic_system.dto.staff.*;
 import com.softcafe.clinic_system.entities.Role;
 import com.softcafe.clinic_system.services.StaffService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -100,6 +97,49 @@ public class StaffController {
             @PathVariable int page
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(staffService.getByRole(role, page));
+    }
+
+    @Operation(summary = "Authenticate users")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200", description = "Successful login",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = StaffData.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400", description = "Missing credentials",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{\"message\": \"Provide at least one identifier\"}")
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "403", description = "Incorrect password",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{\"message\": \"Incorrect password!\"}")
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404", description = "Account not found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{\"message\": \"Account not found!\"}")
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500", description = "Internal server error",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{\"message\": \"An error has occurred\"}")
+                    )
+            )
+    })
+    @PostMapping("/authenticate")
+    public ResponseEntity<StaffData> login(@RequestBody StaffCredentials credentials) {
+        return ResponseEntity.status(HttpStatus.OK).body(staffService.authenticate(credentials));
     }
 
     @Operation(summary = "New staff", description = "Adds a new staff member to the system")
