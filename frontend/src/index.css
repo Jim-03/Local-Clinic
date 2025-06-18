@@ -18,3 +18,68 @@ body {
   height: 100%;
   width: 100%;
 }
+
+.header {
+  background-color: rgb(0, 0, 211);
+  width: 100%;
+  display: flex;
+  color: white;
+  border-radius: 10px;
+}
+
+.header h1 {
+  padding: 0 10px;
+}
+
+.header h2 {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.options {
+  margin: auto;
+  padding: 0 10px;
+  font-size: 2rem;
+  transition: 100ms;
+}
+
+.options:hover {
+  cursor: pointer;
+  transform: translate(-5px);
+}
+
+.sidebar {
+  background-color: navy;
+  height: 100%;
+  width: 15%;
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.sidebar button {
+  height: 10%;
+  width: 90%;
+  font-size: 1.2rem;
+  display: flex;
+  background-color: navy;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  align-items: center;
+  transition: background 500ms ease;
+}
+
+.sidebar button svg {
+  font-size: 2rem;
+  padding: 0 15px;
+}
+
+.sidebar button:hover,
+.sidebar .active {
+  background-color: aliceblue;
+  color: black;
+  cursor: pointer;
+}
