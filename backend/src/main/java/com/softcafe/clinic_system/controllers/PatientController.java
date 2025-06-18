@@ -229,7 +229,7 @@ public class PatientController {
             )
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(
+    public ResponseEntity<Void> delete(
             @Parameter(
                     description = "Primary key",
                     example = "1",
