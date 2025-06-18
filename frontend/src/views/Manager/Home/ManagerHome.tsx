@@ -27,7 +27,7 @@ function Home(): JSX.Element {
         setIsLoading(true);
         try {
             const response: Response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/report/manager`
+                `${import.meta.env.VITE_API_URL}/api/statistics/manager`
             );
 
             if (!response.ok) {
