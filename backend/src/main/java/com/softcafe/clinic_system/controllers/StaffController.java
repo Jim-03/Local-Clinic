@@ -23,6 +23,50 @@ public class StaffController {
 
     private final StaffService staffService;
 
+    @Operation(summary = "Search and sort/filter")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200", description = "Staff list found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ListOfStaff.class)
+                    )),
+            @ApiResponse(
+                    responseCode = "400", description = "Invalid parameters",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{\"message\": \"Provide page number!\"}")
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404", description = "Specified staff doesn't exist",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{\"No staff with the specified phone number exists!\"}")
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500", description = "Internal server error",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{\"message\": \"An error has occurred!\"}")
+                    )
+            )
+    })
+    @GetMapping("/get")
+    public ResponseEntity<ListOfStaff> searchFilterAndSort(
+            @RequestParam(value = "identifier", required = false) String identifier,
+            @RequestParam(value = "value", required = false) String value,
+            @RequestParam(value = "filter", required = false) String filter,
+            @RequestParam(value = "sort", required = false) String sort,
+            @RequestParam("page") int page
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(staffService.searchSortAndFilter(
+                identifier, value, filter, sort, page
+        ));
+    }
+
+
     @Operation(summary = "Get all staff", description = "Retrieves an array of staff members")
     @ApiResponses({
             @ApiResponse(
@@ -57,46 +101,6 @@ public class StaffController {
             @PathVariable int page
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(staffService.getAll(page));
-    }
-
-    @Operation(summary = "Get by role", description = "Fetches an array of staff members from the same role")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200", description = "List of staff found",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ListOfStaff.class)
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "400", description = "Invalid or missing role or page number",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(example = "{\"message\": \"Provide a valid page number\"}")
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "500", description = "Internal server error",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(example = "{\"message\": \"An error has occurred\"}")
-                    )
-            )
-    })
-    @GetMapping("/role/{role}/{page}")
-    public ResponseEntity<ListOfStaff> role(
-            @Parameter(
-                    description = "The role to fetch from",
-                    example = "RECEPTIONIST"
-            )
-            @PathVariable Role role,
-            @Parameter(
-                    description = "Page number starting from 1",
-                    example = "1"
-            )
-            @PathVariable int page
-    ) {
-        return ResponseEntity.status(HttpStatus.OK).body(staffService.getByRole(role, page));
     }
 
     @Operation(summary = "Authenticate users")
