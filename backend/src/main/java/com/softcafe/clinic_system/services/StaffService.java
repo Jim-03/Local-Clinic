@@ -6,6 +6,7 @@ import com.softcafe.clinic_system.dto.staff.StaffCredentials;
 import com.softcafe.clinic_system.dto.staff.StaffData;
 import com.softcafe.clinic_system.entities.Role;
 import com.softcafe.clinic_system.entities.Staff;
+import com.softcafe.clinic_system.entities.StaffStatus;
 import com.softcafe.clinic_system.repositories.StaffRepository;
 import com.softcafe.clinic_system.utils.StaffUtil;
 import com.softcafe.clinic_system.utils.Util;
@@ -15,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -254,5 +257,70 @@ public class StaffService {
         staffRepository.delete(staff.get());
 
         log.info("Staff member with ID {} was removed", id);
+    }
+
+    public ListOfStaff searchSortAndFilter(String identifier, String value, String filter, String sort, int page) {
+        Page<Staff> staffPage = null;
+        List<StaffData> staffList = new ArrayList<>();
+        Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE);
+
+        // Case 1: Search by email/phone/name
+        if (identifier != null && value != null && filter == null && sort == null) {
+            if (identifier.equalsIgnoreCase("email")) {
+                Util.isValidEmail(value);
+                Staff staff = staffRepository.findByEmail(value).orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND, "No staff member with the specified email exists!"
+                        )
+                );
+                staffList.add(StaffUtil.toDto(staff));
+                return new ListOfStaff(1, staffList);
+            }
+            else if (identifier.equalsIgnoreCase("phone")) {
+                Util.isValidPhone(value);
+                Staff staff = staffRepository.findByPhone(value).orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND, "No staff member with the specified phone exists!"
+                        )
+                );
+                staffList.add(StaffUtil.toDto(staff));
+                return new ListOfStaff(1, staffList);
+            }
+            else if (identifier.equalsIgnoreCase("name")) {
+                staffPage = staffRepository.findByFullNameContainingIgnoreCase(value, pageable);
+            }
+        }
+        // Case 2: Filter by role/status
+        else if (filter != null) {
+            if (List.of("NURSE", "DOCTOR", "PHARMACIST", "TECHNICIAN", "RECEPTIONIST").contains(filter)) {
+                staffPage = staffRepository.findByRole(Role.valueOf(filter), pageable);
+            }
+            else if (List.of("ON_DUTY", "OFF", "SUSPENDED").contains(filter)) {
+                staffPage = staffRepository.findByStatus(StaffStatus.valueOf(filter), pageable);
+            }
+        }
+        // Case 3: Sort by criteria
+        else if (sort != null) {
+            pageable = switch (sort) {
+                case "ascendingDate" -> PageRequest.of(page - 1, PAGE_SIZE, Sort.by("createdAt").ascending());
+                case "descendingDate" -> PageRequest.of(page - 1, PAGE_SIZE, Sort.by("createdAt").descending());
+                case "lastLogin" -> PageRequest.of(page - 1, PAGE_SIZE, Sort.by("lastLogin").descending());
+                default -> throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "Invalid sort criteria!"
+                );
+            };
+            staffPage = staffRepository.findAll(pageable);
+        }
+        // Case 4: Default fetch (no search/filter/sort)
+        else {
+            staffPage = staffRepository.findAll(pageable);
+        }
+        if (staffPage != null) {
+            staffPage.getContent().forEach(staff -> staffList.add(StaffUtil.toDto(staff)));
+            return new ListOfStaff(staffPage.getTotalPages(), staffList);
+        }
+        throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST, "Invalid query parameters!"
+        );
     }
 }
