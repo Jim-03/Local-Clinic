@@ -21,4 +21,6 @@ public interface StaffRepository extends JpaRepository<Staff, Long> {
     Optional<Staff> findByEmail(String value);
 
     Optional<Staff> findByPhone(String value);
+
+    Page<Staff> findByFullNameContainingIgnoreCase(String value, Pageable pageable);
 }
