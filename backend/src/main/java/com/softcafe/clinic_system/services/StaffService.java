@@ -79,40 +79,6 @@ public class StaffService {
     }
 
     /**
-     * Retrieves a list of staff members in the same role
-     *
-     * @param role The role of the staff
-     * @param page The page number
-     * @return An object containing the list of staff members and the total pages
-     * @throws ResponseStatusException BAD_REQUEST In case of null or invalid parameters
-     */
-    public ListOfStaff getByRole(Role role, int page) {
-        // Check if role is provided
-        if (role == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide a valid role!");
-        }
-
-        // Check if page number is valid
-        if (page <= 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide a valid page number!");
-        }
-        // Fetch the list of members
-        Page<Staff> staffPage = staffRepository.findByRole(role, PageRequest.of(page - 1, PAGE_SIZE));
-
-        int totalPages = staffPage.getTotalPages();
-
-        List<StaffData> staffDataList = new ArrayList<>();
-
-        // Convert the data objects to dto
-        for (Staff staff : staffPage) {
-            staffDataList.add(StaffUtil.toDto(staff));
-        }
-
-        log.info("A list of {} was fetched generating a total of {} pages", role, totalPages);
-        return new ListOfStaff(totalPages, staffDataList);
-    }
-
-    /**
      * Retrieves a list of all staff members
      *
      * @param page The page number to fetch from
