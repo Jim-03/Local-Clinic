@@ -17,4 +17,6 @@ public interface StaffRepository extends JpaRepository<Staff, Long> {
     Optional<Staff> findByUsernameOrPhoneOrEmail(String username, String phone, String email);
 
     Page<Staff> findByStatus(StaffStatus staffStatus, Pageable pageable);
+
+    Optional<Staff> findByEmail(String value);
 }
