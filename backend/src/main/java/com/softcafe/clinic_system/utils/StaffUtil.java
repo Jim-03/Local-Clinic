@@ -84,20 +84,31 @@ public class StaffUtil {
      * @param newData DTO data
      */
     public static void update(Staff oldData, NewStaff newData) {
+        if (!oldData.getEmail().equalsIgnoreCase(newData.email().trim())) {
+            oldData.setEmail(newData.email().toLowerCase().trim());
+        }
+
+        if (!oldData.getPhone().equals(newData.phone().trim())) {
+            oldData.setPhone(newData.phone().trim());
+        }
+
+        if (!oldData.getUsername().equalsIgnoreCase(newData.username())) {
+            oldData.setUsername(newData.username().toLowerCase());
+        }
+
+        if (!oldData.getNationalId().equals(newData.nationalId().trim())) {
+            oldData.setNationalId(newData.nationalId().trim());
+        }
+
+        if (newData.password() != null && !newData.password().isBlank()) {
+            oldData.setPassword(newData.password());
+        }
+
         oldData.setFullName(Util.wordCase(newData.fullName().trim()));
         oldData.setAddress(newData.address());
-        oldData.setCreatedAt(LocalDateTime.now());
         oldData.setDateOfBirth(newData.dateOfBirth());
-        oldData.setEmail(newData.email().toLowerCase().trim());
         oldData.setGender(newData.gender());
-        oldData.setNationalId(newData.nationalId().trim());
-        oldData.setPhone(newData.phone().trim());
-        oldData.setUpdatedAt(LocalDateTime.now());
-        oldData.setImage(newData.image().getName().trim());
-        oldData.setUsername(newData.username().toLowerCase());
-        oldData.setPassword(newData.password());
         oldData.setRole(newData.role());
-        oldData.setLastLogin(LocalDateTime.now());
         oldData.setStatus(newData.staffStatus());
 
     public static void validateUpdatedData(NewStaff dto) {
