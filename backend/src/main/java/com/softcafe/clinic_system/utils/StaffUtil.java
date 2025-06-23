@@ -111,6 +111,11 @@ public class StaffUtil {
         oldData.setRole(newData.role());
         oldData.setStatus(newData.staffStatus());
 
+        if (newData.image() != null)
+            oldData.setImage(newData.image().getName().trim());
+    }
+
+
     public static void validateUpdatedData(NewStaff dto) {
         validater(dto);
 
