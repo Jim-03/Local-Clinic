@@ -15,47 +15,7 @@ public class StaffUtil {
      * @throws IllegalArgumentException In case of invalid data
      */
     public static void validate(NewStaff dto) {
-        if (dto.fullName() == null) {
-            throw new IllegalArgumentException("Provide patient's full name!");
-        }
-
-        if (dto.address() == null) {
-            throw new IllegalArgumentException("Provide patient's location address!");
-        }
-
-        if (dto.phone() == null) {
-            throw new IllegalArgumentException("Provide patient's phone number!");
-        } else {
-            if (!Util.isValidPhone(dto.phone())) {
-                throw new IllegalArgumentException("Provide a valid phone number!");
-            }
-        }
-
-        if (dto.email() != null) {
-            if (!Util.isValidEmail(dto.email())) {
-                throw new IllegalArgumentException("Provide a valid email address!");
-            }
-        }
-
-        if (dto.nationalId() == null) {
-            throw new IllegalArgumentException("Provide a national ID card number!");
-        }
-
-        if (dto.dateOfBirth() == null) {
-            throw new IllegalArgumentException("Provide the date of birth!");
-        }
-
-        if (dto.gender() == null) {
-            throw new IllegalArgumentException("Provide the patient's gender!");
-        } else {
-            if (!Objects.equals(java.lang.String.valueOf(dto.gender()), "MALE") && !Objects.equals(java.lang.String.valueOf(dto.gender()), "FEMALE")) {
-                throw new IllegalArgumentException("Provide a valid gender!");
-            }
-        }
-
-        if (dto.username() == null) {
-            throw new IllegalArgumentException("Provide the staff's username!");
-        }
+        validater(dto);
 
         if (dto.password() == null) {
             throw new IllegalArgumentException("Provide the staff's password!");
@@ -139,5 +99,56 @@ public class StaffUtil {
         oldData.setRole(newData.role());
         oldData.setLastLogin(LocalDateTime.now());
         oldData.setStatus(newData.staffStatus());
+
+    public static void validateUpdatedData(NewStaff dto) {
+        validater(dto);
+
+        if (dto.role() == null) {
+            throw new IllegalArgumentException("Provide the staff's role!");
+        }
+    }
+
+    private static void validater(NewStaff dto) {
+        if (dto.fullName() == null) {
+            throw new IllegalArgumentException("Provide patient's full name!");
+        }
+
+        if (dto.address() == null) {
+            throw new IllegalArgumentException("Provide patient's location address!");
+        }
+
+        if (dto.phone() == null) {
+            throw new IllegalArgumentException("Provide patient's phone number!");
+        } else {
+            if (!Util.isValidPhone(dto.phone())) {
+                throw new IllegalArgumentException("Provide a valid phone number!");
+            }
+        }
+
+        if (dto.email() != null) {
+            if (!Util.isValidEmail(dto.email())) {
+                throw new IllegalArgumentException("Provide a valid email address!");
+            }
+        }
+
+        if (dto.nationalId() == null) {
+            throw new IllegalArgumentException("Provide a national ID card number!");
+        }
+
+        if (dto.dateOfBirth() == null) {
+            throw new IllegalArgumentException("Provide the date of birth!");
+        }
+
+        if (dto.gender() == null) {
+            throw new IllegalArgumentException("Provide the patient's gender!");
+        } else {
+            if (!Objects.equals(String.valueOf(dto.gender()), "MALE") && !Objects.equals(String.valueOf(dto.gender()), "FEMALE")) {
+                throw new IllegalArgumentException("Provide a valid gender!");
+            }
+        }
+
+        if (dto.username() == null) {
+            throw new IllegalArgumentException("Provide the staff's username!");
+        }
     }
 }

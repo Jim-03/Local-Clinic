@@ -158,7 +158,7 @@ public class StaffService {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide the old password!");
             }
 
-            StaffUtil.validate(newData);
+            StaffUtil.validateUpdatedData(newData);
 
             // Fetch the old data
             Optional<Staff> staff = staffRepository.findById(id);
