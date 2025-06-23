@@ -178,8 +178,9 @@ public class StaffService {
             // Update the staff data
             StaffUtil.update(oldData, newData);
 
-            // Hash the new password
-            oldData.setPassword(BCrypt.hashpw(newData.password(), BCrypt.gensalt(10)));
+            // Hash the new password if provided
+            if (newData.password() != null)
+                oldData.setPassword(BCrypt.hashpw(newData.password(), BCrypt.gensalt(10)));
 
             StaffData data = StaffUtil.toDto(staffRepository.save(oldData));
 
