@@ -102,6 +102,7 @@ public class StaffUtil {
         return new StaffData(
                 staff.getId(),
                 staff.getFullName(),
+                staff.getUsername(), 
                 staff.getEmail(),
                 staff.getPhone(),
                 staff.getNationalId(),

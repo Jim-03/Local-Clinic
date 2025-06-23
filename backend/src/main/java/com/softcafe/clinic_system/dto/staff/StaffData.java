@@ -13,6 +13,8 @@ public record StaffData(
         Long id,
         @Schema(description = "The staff's full legal name", example = "John Doe")
         String fullName,
+        @Schema(description = "The account's username", example = "johnDoe")
+        String username,
         @Schema(description = "The staff's email address", example = "johnDoe@example.com")
         String email,
         @Schema(description = "The staff's phone number", example = "0712345678")
