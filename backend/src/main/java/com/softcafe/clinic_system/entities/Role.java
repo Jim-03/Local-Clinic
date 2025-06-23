@@ -8,5 +8,6 @@ public enum Role {
     RECEPTIONIST,
     DOCTOR,
     PHARMACIST,
-    TECHNICIAN
+    TECHNICIAN,
+    MANAGER
 }
