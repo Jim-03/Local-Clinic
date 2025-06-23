@@ -83,7 +83,8 @@ public class StaffUtil {
         staff.setNationalId(dto.nationalId().trim());
         staff.setPhone(dto.phone().trim());
         staff.setUpdatedAt(LocalDateTime.now());
-        staff.setImage(dto.image().getName().trim());
+        if (dto.image() != null)
+            staff.setImage(dto.image().getName().trim());
         staff.setUsername(dto.username().toLowerCase());
         staff.setPassword(dto.password());
         staff.setRole(dto.role());
