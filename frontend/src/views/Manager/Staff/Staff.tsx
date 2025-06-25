@@ -37,6 +37,8 @@ function Staff(): JSX.Element {
     const [filterTerm, setFilterTerm] = useState<string>("")
     const [listType, setListType] = useState<"modified" | "default">("default")
     const [message, setMessage] = useState<string>("No staff members at the moment")
+    const [showForm, setShowForm] = useState<boolean>(false)
+    const [selectedStaff, setSelectedStaff] = useState<Staff | undefined>(undefined)
     const apiUrl: string = import.meta.env.VITE_API_URL + "/api/staff"
 
     useEffect(() => {
