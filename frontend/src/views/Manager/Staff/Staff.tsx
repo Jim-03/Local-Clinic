@@ -143,6 +143,10 @@ function Staff(): JSX.Element {
 
     return (
         <div className={styles.background}>
+            {(showForm || selectedStaff) && <StaffForm staffData={selectedStaff} closeFunction={() => {
+                setShowForm(false)
+                setSelectedStaff(undefined)
+            }} reloadFunction={() => { fetchStaff() }} />}
             <h2>Staff</h2>
             <section className={styles.header}>
                 <div>
@@ -176,7 +180,7 @@ function Staff(): JSX.Element {
                 </div>
             </section>
             <section className={styles.mainSection}>
-                <button className={styles.addStaffButton} onClick={() => toast("Add staff not implemented")}><FaPlus /> Add new Staff</button>
+                <button className={styles.addStaffButton} onClick={() => setShowForm(true)}><FaPlus /> Add new Staff</button>
                 <div className={styles.dataView}>
                     {staffList.length === 0 ?
                         <ul>
@@ -203,7 +207,10 @@ function Staff(): JSX.Element {
                                             <td>{staffMember.email}</td>
                                             <td>{staffMember.phone}</td>
                                             <td>{staffMember.role}</td>
-                                            <td><div className={styles.actions}><FaEdit onClick={() => toast("Edit staff not implemented")} /> <MdDelete onClick={() => toast("Delete staff not implemented")} /></div></td>
+                                            <td><div className={styles.actions}><FaEdit onClick={() => {
+                                                setSelectedStaff(staffMember)
+                                                setShowForm(true)
+                                            }} /> <MdDelete onClick={() => toast("Delete staff not implemented")} /></div></td>
                                         </tr>
                                     })}
                                 </tbody>
