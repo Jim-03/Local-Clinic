@@ -7,20 +7,21 @@ import { parsePhoneNumber } from "libphonenumber-js/min";
 import toast from "react-hot-toast";
 
 interface Staff {
-    id: number;
+    id?: number;
     fullName: string;
     email: string;
     phone: string;
     nationalId: string;
-    address: string
-    dateOfBirth: string;
-    gender: string;
-    image: string;
-    isActive: string;
-    role: string
-    lastLogin: Date;
-    createdAt: Date;
-    updatedAt: Date
+    address: string;
+    dateOfBirth: Date;
+    gender: "MALE" | "FEMALE";
+    image?: File;
+    username?: string;
+    password?: string;
+    staffStatus: "ON_DUTY" | "OFF" | "SUSPENDED";
+    role: "DOCTOR" | "NURSE" | "PHARMACIST" | "RECEPTIONIST" | "MANAGER";
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 /**
