@@ -1,10 +1,11 @@
 import { FaEdit, FaPlus } from "react-icons/fa";
 import styles from "./Staff.module.css"
 import { MdChevronLeft, MdChevronRight, MdDelete } from "react-icons/md";
-import {type JSX, useEffect, useState} from "react";
+import { type JSX, useEffect, useState } from "react";
 import validator from "email-validator";
 import { parsePhoneNumber } from "libphonenumber-js/min";
 import toast from "react-hot-toast";
+import StaffForm from "../StaffForm/StaffForm";
 
 interface Staff {
     id?: number;
