@@ -182,6 +182,12 @@ function Staff(): JSX.Element {
                         <option value="lastLogin">Last Login</option>
                     </select>
                 </div>
+                <button onClick={() => {
+                    setFilterTerm("")
+                    setSortCriteria("")
+                    setSearchWord("")
+                    fetchStaff()
+                }}>Clear</button>
             </section>
             <section className={styles.mainSection}>
                 <button className={styles.addStaffButton} onClick={() => setShowForm(true)}><FaPlus /> Add new Staff</button>
