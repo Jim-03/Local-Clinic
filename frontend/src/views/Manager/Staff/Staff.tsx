@@ -52,6 +52,10 @@ function Staff(): JSX.Element {
         }
     }, [page])
 
+    useEffect(() => {
+        if (filterTerm || sortCriteria || searchWord) applySearchFilterAndSort()
+    }, [filterTerm, sortCriteria, searchWord]);
+
     /**
      * Determines the string type of the search word
      * @returns {"phone" | "email" | "name"} The string type
