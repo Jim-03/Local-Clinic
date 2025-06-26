@@ -56,6 +56,9 @@ public class StaffService {
             // Convert to staff object
             Staff newStaff = StaffUtil.toStaff(staff);
 
+            // Check for duplicated values
+            StaffExists(newStaff);
+
             // Hash the password
             newStaff.setPassword(BCrypt.hashpw(staff.password(), BCrypt.gensalt(10)));
 
@@ -76,6 +79,25 @@ public class StaffService {
             log.warn(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
+    }
+
+    /**
+     * Checks if the new staff data violates unique constraints
+     *
+     * @param newStaff The new staff data
+     * @throws ResponseStatusException CONFLICT in case of duplicated values
+     */
+    private void StaffExists(Staff newStaff) {
+        String violated = null;
+
+        if (staffRepository.findByEmail(newStaff.getEmail()).isPresent()) violated = "email";
+        if (staffRepository.findByPhone(newStaff.getPhone()).isPresent()) violated = "phone number";
+        if (staffRepository.findByNationalId(newStaff.getNationalId()).isPresent()) violated = "national ID number";
+        if (staffRepository.findByUsername(newStaff.getUsername()).isPresent()) violated = "username";
+
+        if (violated != null) throw new ResponseStatusException(
+                HttpStatus.CONFLICT, "A staff member with the specified " + violated + " already exists!"
+        );
     }
 
     /**
@@ -242,8 +264,7 @@ public class StaffService {
                 );
                 staffList.add(StaffUtil.toDto(staff));
                 return new ListOfStaff(1, staffList);
-            }
-            else if (identifier.equalsIgnoreCase("phone")) {
+            } else if (identifier.equalsIgnoreCase("phone")) {
                 Util.isValidPhone(value);
                 Staff staff = staffRepository.findByPhone(value).orElseThrow(() ->
                         new ResponseStatusException(
@@ -252,8 +273,7 @@ public class StaffService {
                 );
                 staffList.add(StaffUtil.toDto(staff));
                 return new ListOfStaff(1, staffList);
-            }
-            else if (identifier.equalsIgnoreCase("name")) {
+            } else if (identifier.equalsIgnoreCase("name")) {
                 staffPage = staffRepository.findByFullNameContainingIgnoreCase(value, pageable);
             }
         }
@@ -261,8 +281,7 @@ public class StaffService {
         else if (filter != null) {
             if (List.of("NURSE", "DOCTOR", "PHARMACIST", "TECHNICIAN", "RECEPTIONIST").contains(filter)) {
                 staffPage = staffRepository.findByRole(Role.valueOf(filter), pageable);
-            }
-            else if (List.of("ON_DUTY", "OFF", "SUSPENDED").contains(filter)) {
+            } else if (List.of("ON_DUTY", "OFF", "SUSPENDED").contains(filter)) {
                 staffPage = staffRepository.findByStatus(StaffStatus.valueOf(filter), pageable);
             }
         }
