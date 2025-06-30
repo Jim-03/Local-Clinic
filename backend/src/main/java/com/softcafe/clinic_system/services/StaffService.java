@@ -248,45 +248,22 @@ public class StaffService {
         log.info("Staff member with ID {} was removed", id);
     }
 
+    /**
+     * Fetches staff data depending on a search, sort or filter
+     *
+     * @param identifier The staff's email, phone or name
+     * @param value      The value of the identifier
+     * @param filter     A filter term
+     * @param sort       A sorting criteria
+     * @param page       Page number
+     * @return An object containing a list of staff and the total expected pages
+     */
     public ListOfStaff searchSortAndFilter(String identifier, String value, String filter, String sort, int page) {
         Page<Staff> staffPage = null;
         List<StaffData> staffList = new ArrayList<>();
         Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE);
 
-        // Case 1: Search by email/phone/name
-        if (identifier != null && value != null && filter == null && sort == null) {
-            if (identifier.equalsIgnoreCase("email")) {
-                Util.isValidEmail(value);
-                Staff staff = staffRepository.findByEmail(value).orElseThrow(() ->
-                        new ResponseStatusException(
-                                HttpStatus.NOT_FOUND, "No staff member with the specified email exists!"
-                        )
-                );
-                staffList.add(StaffUtil.toDto(staff));
-                return new ListOfStaff(1, staffList);
-            } else if (identifier.equalsIgnoreCase("phone")) {
-                Util.isValidPhone(value);
-                Staff staff = staffRepository.findByPhone(value).orElseThrow(() ->
-                        new ResponseStatusException(
-                                HttpStatus.NOT_FOUND, "No staff member with the specified phone exists!"
-                        )
-                );
-                staffList.add(StaffUtil.toDto(staff));
-                return new ListOfStaff(1, staffList);
-            } else if (identifier.equalsIgnoreCase("name")) {
-                staffPage = staffRepository.findByFullNameContainingIgnoreCase(value, pageable);
-            }
-        }
-        // Case 2: Filter by role/status
-        else if (filter != null) {
-            if (List.of("NURSE", "DOCTOR", "PHARMACIST", "TECHNICIAN", "RECEPTIONIST").contains(filter)) {
-                staffPage = staffRepository.findByRole(Role.valueOf(filter), pageable);
-            } else if (List.of("ON_DUTY", "OFF", "SUSPENDED").contains(filter)) {
-                staffPage = staffRepository.findByStatus(StaffStatus.valueOf(filter), pageable);
-            }
-        }
-        // Case 3: Sort by criteria
-        else if (sort != null) {
+        if (sort != null) {
             pageable = switch (sort) {
                 case "ascendingDate" -> PageRequest.of(page - 1, PAGE_SIZE, Sort.by("createdAt").ascending());
                 case "descendingDate" -> PageRequest.of(page - 1, PAGE_SIZE, Sort.by("createdAt").descending());
@@ -295,16 +272,69 @@ public class StaffService {
                         HttpStatus.BAD_REQUEST, "Invalid sort criteria!"
                 );
             };
-            staffPage = staffRepository.findAll(pageable);
         }
-        // Case 4: Default fetch (no search/filter/sort)
+
+        // Case 1: Search by email/phone/name
+        if (identifier != null && value != null) {
+            if (identifier.equalsIgnoreCase("email")) {
+                Util.isValidEmail(value);
+                Staff staff = staffRepository.findByEmail(value).orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND, "No staff member with the specified email exists!"
+                        )
+                );
+                if (filter != null && !StaffUtil.staffMatchesFilter(staff, filter)) {
+                    staffList = new ArrayList<>();
+                } else {
+                    staffList.add(StaffUtil.toDto(staff));
+                }
+                return new ListOfStaff(1, staffList);
+            } else if (identifier.equalsIgnoreCase("phone")) {
+                Util.isValidPhone(value);
+                Staff staff = staffRepository.findByPhone(value).orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND, "No staff member with the specified phone exists!"
+                        )
+                );
+                if (filter != null && !StaffUtil.staffMatchesFilter(staff, filter)) {
+                    staffList = new ArrayList<>();
+                } else {
+                    staffList.add(StaffUtil.toDto(staff));
+                }
+                return new ListOfStaff(1, staffList);
+            } else if (identifier.equalsIgnoreCase("name")) {
+                if (filter != null) {
+                    if (List.of("NURSE", "DOCTOR", "PHARMACIST", "TECHNICIAN", "RECEPTIONIST").contains(filter)) {
+                        staffPage = staffRepository.findByFullNameContainingIgnoreCaseAndRole(
+                                value, Role.valueOf(filter), pageable);
+                    } else if (List.of("ON_DUTY", "OFF", "SUSPENDED").contains(filter)) {
+                        staffPage = staffRepository.findByFullNameContainingIgnoreCaseAndStatus(
+                                value, StaffStatus.valueOf(filter), pageable);
+                    }
+                } else {
+                    staffPage = staffRepository.findByFullNameContainingIgnoreCase(value, pageable);
+                }
+            }
+        }
+        // Case 2: Filter only (no search)
+        else if (filter != null) {
+            if (List.of("NURSE", "DOCTOR", "PHARMACIST", "TECHNICIAN", "RECEPTIONIST").contains(filter)) {
+                staffPage = staffRepository.findByRole(Role.valueOf(filter), pageable);
+            } else if (List.of("ON_DUTY", "OFF", "SUSPENDED").contains(filter)) {
+                staffPage = staffRepository.findByStatus(StaffStatus.valueOf(filter), pageable);
+            }
+        }
+        // Case 3: No search or filter, just sorting/pagination
         else {
             staffPage = staffRepository.findAll(pageable);
         }
+
         if (staffPage != null) {
-            staffPage.getContent().forEach(staff -> staffList.add(StaffUtil.toDto(staff)));
+            List<StaffData> finalStaffList = staffList;
+            staffPage.getContent().forEach(staff -> finalStaffList.add(StaffUtil.toDto(staff)));
             return new ListOfStaff(staffPage.getTotalPages(), staffList);
         }
+
         throw new ResponseStatusException(
                 HttpStatus.BAD_REQUEST, "Invalid query parameters!"
         );
