@@ -6,5 +6,5 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public enum AppointmentStatus {
     PENDING,
     COMPLETE,
-    INCOMPLETE
+    CANCELLED
 }
