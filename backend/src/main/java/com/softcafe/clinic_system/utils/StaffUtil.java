@@ -6,6 +6,7 @@ import com.softcafe.clinic_system.entities.Staff;
 import com.softcafe.clinic_system.entities.StaffStatus;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 public class StaffUtil {
@@ -166,5 +167,20 @@ public class StaffUtil {
         if (dto.username() == null) {
             throw new IllegalArgumentException("Provide the staff's username!");
         }
+    }
+
+    /**
+     * Checks if the staff data matches filter term
+     * @param staff Staff data
+     * @param filter Filter term
+     * @return true if the staff matches, false otherwise
+     */
+    public static boolean staffMatchesFilter(Staff staff, String filter) {
+        if (List.of("NURSE", "DOCTOR", "PHARMACIST", "TECHNICIAN", "RECEPTIONIST").contains(filter)) {
+            return staff.getRole().name().equals(filter);
+        } else if (List.of("ON_DUTY", "OFF", "SUSPENDED").contains(filter)) {
+            return staff.getStatus().name().equals(filter);
+        }
+        return false;
     }
 }
