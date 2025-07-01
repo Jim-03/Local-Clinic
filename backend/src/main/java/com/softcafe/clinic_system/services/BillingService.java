@@ -95,8 +95,8 @@ public class BillingService {
 
         // Fetch the page of Billings
         Page<Billing> billingPage = billingRepository.findByCreatedAtBetween(
-                start, end, PageRequest.of(page - 1, PAGE_SIZE, Sort.by(
-                        Sort.Direction.DESC, "created_at"
+                start, end, PageRequest.of(page - 1, 5, Sort.by(
+                        Sort.Direction.DESC, "createdAt"
                 ))
         );
 
