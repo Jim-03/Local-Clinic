@@ -89,7 +89,7 @@ function Login(): JSX.Element {
             const data = await response.json()
             localStorage.setItem("userData", JSON.stringify(data))
             toast.success("Login successful!")
-            navigate("/", { replace: true })
+            navigate("/dashboard", { replace: true })
         } catch (error) {
             console.error(error)
             toast.error("An unexpected error has occurred!")
