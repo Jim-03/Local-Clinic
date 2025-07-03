@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 import validator from "email-validator";
 import { parsePhoneNumber } from "libphonenumber-js/min";
 import { useNavigate } from "react-router-dom";
-import.meta.env.VITE_API_URL
 
 interface UserDetails {
     username?: string;
