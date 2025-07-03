@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -80,8 +81,10 @@ public class AppointmentService {
      * @throws ResponseStatusException: BAD_REQUEST In case of invalid page number or dates
      */
     public AppointmentList getByDateRange(LocalDateTime start, LocalDateTime end, int page) {
-        Util.validatePage(page);
-        Page<Appointment> pages = appointmentRepository.findByCreatedAtBetween(start, end, PageRequest.of(page - 1, PAGE_SIZE));
+        Page<Appointment> pages = null;
+        pages = page == 0 ?
+                appointmentRepository.findByCreatedAtBetween(start, end, Pageable.unpaged()) :
+                appointmentRepository.findByCreatedAtBetween(start, end, PageRequest.of(page - 1, PAGE_SIZE));
         List<AppointmentData> list = new ArrayList<>();
 
         for (Appointment appointment : pages) {
