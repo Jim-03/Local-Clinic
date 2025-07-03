@@ -1,27 +1,40 @@
-import {type JSX} from "react";
-import Login from "../pages/Login/Login.tsx";
+import {type JSX, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import Admin from "../pages/Dashboard/Admin.tsx";
 import Receptionist from "../pages/Dashboard/Receptionist.tsx";
 
-/**
- * A component that serves other components based on the user's role
- * In case the user isn't authenticated, it renders the login component by default
- */
+interface User {
+    fullName: string;
+    role: string;
+}
+
 export function ProtectedRoute(): JSX.Element {
-    const userData = sessionStorage.getItem("userData")
+    const navigate = useNavigate()
+    const [user, setUser] = useState<User | null>(null)
 
-    if (userData === null) {
-        return <Login/>
-    } else {
-        const user = JSON.parse(userData)
-
-        switch (user.role) {
-            case "MANAGER":
-                return <Admin/>
-            case "RECEPTIONIST":
-                return <Receptionist/>
+    useEffect(() => {
+        const stored = localStorage.getItem("userData")
+        if (!stored) {
+            navigate("/", {replace: true})
+        } else {
+            try {
+                const parsed: User = JSON.parse(stored)
+                setUser(parsed)
+            } catch (e) {
+                console.error("Invalid user data in storage", e)
+                navigate("/", {replace: true})
+            }
         }
-    }
+    }, [navigate])
 
-    return <Login/>
+    if (!user) return <></>
+
+    switch (user.role) {
+        case "MANAGER":
+            return <Admin userData={{name: user.fullName, role: user.role}}/>
+        case "RECEPTIONIST":
+            return <Receptionist/>
+        default:
+            return <></>
+    }
 }
