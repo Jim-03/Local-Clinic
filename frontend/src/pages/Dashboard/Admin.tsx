@@ -9,10 +9,14 @@ import Appointment from "../../views/Manager/Appointment/Appointment.tsx";
 import Billing from "../../views/Manager/Billing/Billing.tsx";
 import Reports from "../../views/Manager/Report/Report.tsx";
 
+type UserData = {
+    userData: { name: string, role: string }
+}
+
 /**
  * A component that renders the managers dashboard
  */
-function Admin(): JSX.Element {
+function Admin({userData}: UserData): JSX.Element {
 
     const [view, setView] = useState<JSX.Element>(<ManagerHome/>)
 
@@ -23,8 +27,8 @@ function Admin(): JSX.Element {
     return (
         <div className="dashboard">
             <Header user={{
-                name: "Jimmy Chemuku",
-                role: "Manager"
+                name: userData.name,
+                role: userData.role
             }}/>
             <div className="main">
                 <Sidebar options={[
