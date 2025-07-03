@@ -4,7 +4,7 @@ import Login from "./pages/Login/Login"
 
 function App() {
     return (<>
-        <Toaster position={"top-right"} reverseOrder={true} />
+        <Toaster position={"top-center"} reverseOrder={true} />
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Login />} />
