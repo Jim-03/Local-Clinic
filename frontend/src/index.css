@@ -1,3 +1,7 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
   background-image: url("assets/images/background.jpg");
   background-position: center;
@@ -17,6 +21,17 @@ body {
   justify-content: center;
   height: 100%;
   width: 100%;
+}
+
+.dashboard {
+  height: 99%;
+  width: 99%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  overflow-y: scroll;
 }
 
 .header {
@@ -46,6 +61,14 @@ body {
 .options:hover {
   cursor: pointer;
   transform: translate(-5px);
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  overflow-y: scroll;
 }
 
 .sidebar {
@@ -82,4 +105,27 @@ body {
   background-color: aliceblue;
   color: black;
   cursor: pointer;
+}
+.viewSection {
+  flex-grow: 1;
+  display: flex;
+  background-color: rgb(240, 240, 240);
+}
+
+table {
+  background-color: white;
+  border-radius: 10px;
+  flex-grow: 1;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+table thead {
+  background-color: navy;
+  color: white;
+  font-size: 20px;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: rgb(245, 245, 245);
 }
