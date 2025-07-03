@@ -4,6 +4,7 @@ import com.softcafe.clinic_system.dto.appointment.AppointmentData;
 import com.softcafe.clinic_system.dto.appointment.AppointmentList;
 import com.softcafe.clinic_system.dto.appointment.NewAppointment;
 import com.softcafe.clinic_system.services.AppointmentService;
+import com.softcafe.clinic_system.utils.Util;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -211,6 +212,7 @@ public class AppointmentController {
             )
             @PathVariable int page
     ) {
+        Util.validatePage(page);
         return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getByDateRange(start, end, page));
     }
 
