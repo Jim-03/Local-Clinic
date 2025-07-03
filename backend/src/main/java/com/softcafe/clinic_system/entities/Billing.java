@@ -23,6 +23,10 @@ public class Billing {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "appointment_id")
+    private Appointment appointment;
+
+    @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
     @Schema(description = "Patient's details", implementation = Patient.class)
     private Patient patient;
