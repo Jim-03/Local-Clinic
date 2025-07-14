@@ -32,6 +32,10 @@ public class Appointment {
     @Schema(description = "Doctor's details", implementation = StaffData.class)
     private Staff doctor;
 
+    @ManyToOne
+    @JoinColumn(name = "receptionist_id", nullable = false)
+    private Staff receptionist;
+
     @Column
     @Schema(description = "The completeness", example = "PENDING")
     private AppointmentStatus status;
