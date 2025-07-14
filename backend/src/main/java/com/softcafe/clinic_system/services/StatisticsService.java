@@ -2,18 +2,20 @@ package com.softcafe.clinic_system.services;
 
 import com.softcafe.clinic_system.dto.report.LogData;
 import com.softcafe.clinic_system.dto.report.ManagerStats;
+import com.softcafe.clinic_system.dto.report.ReceptionistStats;
+import com.softcafe.clinic_system.entities.Appointment;
+import com.softcafe.clinic_system.entities.AppointmentStatus;
 import com.softcafe.clinic_system.entities.Log;
 import com.softcafe.clinic_system.entities.StaffStatus;
 import com.softcafe.clinic_system.repositories.AppointmentRepository;
 import com.softcafe.clinic_system.repositories.LogRepository;
 import com.softcafe.clinic_system.repositories.StaffRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,7 +35,7 @@ public class StatisticsService {
 
     /**
      * Retrieves statistics for the manager role
-     * 
+     *
      * @return An object containing the statistics for manager
      */
     public ManagerStats getForManager() {
@@ -50,5 +52,24 @@ public class StatisticsService {
         }
 
         return new ManagerStats(totalStaff, staffOnDuty, dailyAppointments, logList);
+    }
+
+    /**
+     * Retrieves statistics for the receptionist role
+     *
+     * @param id Receptionist's primary key
+     * @return A statistics object containing appointments data (total, incomplete, complete) and the receptionists logs
+     */
+    public ReceptionistStats getForReceptionist(long id) {
+        Page<Appointment> todayAppointments = appointmentRepository.findByCreatedAtBetweenAndReceptionist_Id(
+                startOfDay, endOfDay, id, Pageable.unpaged()
+        );
+        Page<Log> logPage = logRepository.findByStaff_Id(id, PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "time")));
+        return new ReceptionistStats(
+                todayAppointments.getTotalElements(),
+                todayAppointments.stream().filter(appointment -> appointment.getStatus() == AppointmentStatus.COMPLETE).count(),
+                todayAppointments.stream().filter(appointment -> appointment.getStatus() == AppointmentStatus.PENDING).count(),
+                logPage.stream().map(log -> new LogData(log.getId(), log.getAction(), log.getTime())).toList()
+        );
     }
 }
