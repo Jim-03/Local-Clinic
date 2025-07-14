@@ -17,4 +17,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     Page<Appointment> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end, Pageable of);
 
     Page<Appointment> findByPatient(Patient patient, Pageable pageable);
+
+    Page<Appointment> findByCreatedAtBetweenAndReceptionist_Id(LocalDateTime startOfDay, LocalDateTime endOfDay, long id, Pageable unpaged);
 }
