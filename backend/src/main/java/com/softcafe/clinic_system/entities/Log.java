@@ -19,6 +19,9 @@ public class Log {
     @GeneratedValue
     private Long id;
 
+    @ManyToOne
+    private Staff staff;
+
     @Column
     private String action;
 
