@@ -30,11 +30,13 @@ export function ProtectedRoute(): JSX.Element {
 
     if (!user) return <></>
 
+    const data = {id: user.id, name: user.fullName, role: user.role}
+
     switch (user.role) {
         case "MANAGER":
-            return <Admin userData={{name: user.fullName, role: user.role}}/>
+            return <Admin userData={data}/>
         case "RECEPTIONIST":
-            return <Receptionist/>
+            return <Receptionist userData={data}/>
         default:
             return <></>
     }
