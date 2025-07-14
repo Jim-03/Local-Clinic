@@ -1,6 +1,7 @@
 package com.softcafe.clinic_system.controllers;
 
 import com.softcafe.clinic_system.dto.report.ManagerStats;
+import com.softcafe.clinic_system.dto.report.ReceptionistStats;
 import com.softcafe.clinic_system.services.StatisticsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,4 +34,15 @@ public class StatisticsController {
                 return ResponseEntity.status(HttpStatus.OK).body(statisticsService.getForManager());
         }
 
+        @Operation(summary = "Get statistics for the receptionist")
+        @ApiResponses({
+                @ApiResponse(responseCode = "200", description = "Statistics found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ManagerStats.class))),
+                @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json", schema = @Schema(example = "{\"message\": \"An error has occurred!\"}")))
+        })
+        @GetMapping("/receptionist/{id}")
+        public ResponseEntity<ReceptionistStats> getReceptionistStats(
+                @PathVariable long id
+        ) {
+                return ResponseEntity.status(HttpStatus.OK).body(statisticsService.getForReceptionist(id));
+        }
 }
