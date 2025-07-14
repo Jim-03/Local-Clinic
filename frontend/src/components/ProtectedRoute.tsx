@@ -4,6 +4,7 @@ import Admin from "../pages/Dashboard/Admin.tsx";
 import Receptionist from "../pages/Dashboard/Receptionist.tsx";
 
 interface User {
+    id: number;
     fullName: string;
     role: string;
 }
