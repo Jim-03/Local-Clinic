@@ -1,0 +1,93 @@
+.patientsView {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f4f9ff;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.controls input[type="search"] {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.controlButtons {
+    display: flex;
+    gap: 10px;
+}
+
+.controlButtons button {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.controlButtons button:hover {
+    background-color: #34495e;
+}
+
+.patientTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.patientTable thead {
+    background-color: #001f77;
+    color: white;
+}
+
+.patientTable th, .patientTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.patientTable tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: navy;
+    font-size: 1rem;
+    margin-right: 8px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.pagination button {
+    border: none;
+    background-color: #2980b9;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: default;
+}
