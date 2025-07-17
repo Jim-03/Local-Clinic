@@ -4,6 +4,7 @@ import com.softcafe.clinic_system.dto.appointment.AppointmentData;
 import com.softcafe.clinic_system.dto.appointment.AppointmentList;
 import com.softcafe.clinic_system.dto.appointment.NewAppointment;
 import com.softcafe.clinic_system.entities.Appointment;
+import com.softcafe.clinic_system.entities.AppointmentStatus;
 import com.softcafe.clinic_system.entities.Patient;
 import com.softcafe.clinic_system.entities.Staff;
 import com.softcafe.clinic_system.repositories.AppointmentRepository;
@@ -156,6 +157,7 @@ public class AppointmentService {
         Appointment appointment = new Appointment();
         appointment.setPatient(patient.get());
         appointment.setDoctor(doctor.get());
+        appointment.setStatus(AppointmentStatus.PENDING);
 
         AppointmentData appointmentData = AppointmentUtil.toDto(appointmentRepository.save(appointment));
 
