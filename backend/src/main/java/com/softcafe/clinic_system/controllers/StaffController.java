@@ -23,6 +23,28 @@ public class StaffController {
 
     private final StaffService staffService;
 
+    @Operation(description = "Retrieves a list of doctors on duty")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200", description = "List of doctors found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ListOfStaff.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500", description = "Internal server error",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{\"message\": \"An error has occurred\"}")
+                    )
+            )
+    })
+    @GetMapping("/doctors/active")
+    private ResponseEntity<ListOfStaff> getActiveDoctors() {
+        return ResponseEntity.status(HttpStatus.OK).body(staffService.getDoctorOnDuty());
+    }
+
     @Operation(summary = "Search and sort/filter")
     @ApiResponses({
             @ApiResponse(
