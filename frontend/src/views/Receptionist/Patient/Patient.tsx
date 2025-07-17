@@ -33,7 +33,7 @@ function Patients(): JSX.Element {
     const api = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
-      fetchPatients()
+        fetchPatients()
     }, [page]);
 
     function fetchPatients(): void {
@@ -76,7 +76,7 @@ function Patients(): JSX.Element {
                 <section className={styles.controls}>
                     <input
                         type="search"
-                        placeholder="Search by name, email, phone..."
+                        placeholder="Search by email, phone, insurance number or national id number"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
