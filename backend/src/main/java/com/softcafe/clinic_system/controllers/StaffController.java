@@ -1,7 +1,6 @@
 package com.softcafe.clinic_system.controllers;
 
 import com.softcafe.clinic_system.dto.staff.*;
-import com.softcafe.clinic_system.entities.Role;
 import com.softcafe.clinic_system.services.StaffService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
