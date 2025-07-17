@@ -339,4 +339,15 @@ public class StaffService {
                 HttpStatus.BAD_REQUEST, "Invalid query parameters!"
         );
     }
+
+    /**
+     * Retrieves a list of doctors who are on active duty
+     *
+     * @return An object containing the list of doctors
+     */
+    public ListOfStaff getDoctorOnDuty() {
+        List<Staff> doctors = staffRepository.findByRole(Role.DOCTOR, Pageable.unpaged()).stream().toList();
+        doctors = doctors.stream().filter(doctor -> doctor.getStatus() == StaffStatus.ON_DUTY).toList();
+        return new ListOfStaff(0, doctors.stream().map(StaffUtil::toDto).toList());
+    }
 }
