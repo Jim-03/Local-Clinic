@@ -228,4 +228,18 @@ public class AppointmentService {
 
         appointmentRepository.delete(appointment.get());
     }
+
+    /**
+     * Retrieves a paginated list of appointments
+     *
+     * @param page The page number to request
+     * @return An object containing the total number of expected pages and a list of 10 appointments
+     */
+    public AppointmentList getAll(int page) {
+        Page<Appointment> appointmentPage = appointmentRepository.findAll(PageRequest.of(
+                page, PAGE_SIZE, Sort.by(Sort.Direction.DESC, "createdAt")
+        ));
+
+        return new AppointmentList(appointmentPage.getTotalPages(), appointmentPage.stream().map(AppointmentUtil::toDto).toList());
+    }
 }
