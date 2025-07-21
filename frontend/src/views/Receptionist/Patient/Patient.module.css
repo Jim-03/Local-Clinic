@@ -12,11 +12,85 @@
     gap: 10px;
 }
 
-.controls input[type="search"] {
+.searchContainer {
+    display: flex;
+    gap: 8px;
+    align-items: center;
     flex-grow: 1;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    position: relative;
+}
+
+.errorMessage {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    color: #e74c3c;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.searchSelect {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.searchInput {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.searchButton {
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.searchButton:hover {
+    background-color: #2980b9;
+}
+
+.searchButton:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+.searchButton:disabled:hover {
+    background-color: #95a5a6;
+}
+
+.resetButton {
+    padding: 8px 16px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.resetButton:hover {
+    background-color: #c0392b;
+}
+
+.controls {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.controlButtons {
+    display: flex;
+    gap: 8px;
 }
 
 .controlButtons {
