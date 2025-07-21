@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -214,6 +215,38 @@ public class AppointmentController {
     ) {
         Util.validatePage(page);
         return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getByDateRange(start, end, page));
+    }
+
+    @Operation(description = "Retrieves a list of all appointments")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200", description = "List of appointments found",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = AppointmentList.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400", description = "Invalid page number",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{\"message\": \"Pages start at 1\"}")
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500", description = "Internal server error",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{\"message\": \"An error has occurred\"}")
+                    )
+            )
+    })
+    @GetMapping
+    public ResponseEntity<AppointmentList> fetchAll(
+            @Parameter(description = "Page number", example = "1", required = true)
+            @RequestParam("page") @Min(value = 1, message = "Pages start at 1!") int page
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(appointmentService.getAll(page));
     }
 
     @Operation(summary = "Update appointment")
