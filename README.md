@@ -41,21 +41,21 @@ ___
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/Jim-03/clinic-system.git
-   cd clinic-system
+   git clone https://github.com/Jim-03/Local-Clinic.git
+   cd Local-Clinic
    ```
 
 2. **Create a .env file**
 
    Add the required environment variables to a .env file at the root of the project.
    ```text
-   DB_URL=jdbc:postgresql://localhost:5432/clinic
-   DB_USER=postgres
-   DB_PASSWORD=yourpassword
-   DB_NAME=clinic
-   SPRING_PROFILE=dev
-   VITE_API_URL=http://localhost:8080
-   APP_CORS_ALLOWED_ORIGINS=http://localhost:3000
+   DB_URL=jdbc:postgresql://localhost:5432/clinic # URL to the database
+   DB_USER=postgres                               # The username to the database
+   DB_PASSWORD=yourpassword                       # The password to the database
+   DB_NAME=clinic                                 # The name of the database
+   SPRING_PROFILE=dev                             # Server's profile mode, 'dev' for developer mode 'prod' for production mode
+   VITE_API_URL=http://localhost:8080             # Server URL
+   APP_CORS_ALLOWED_ORIGINS=http://localhost:3000 # Frontend URL
    ```
 
    > **NOTE:** For the initial setup, set `SPRING_PROFILE=dev` to auto-generate the database structure. Afterward,
