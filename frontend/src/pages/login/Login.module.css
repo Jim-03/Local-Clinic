@@ -2,7 +2,7 @@
   background-color: white;
   padding: 30px 20px;
   width: 25%;
-  box-shadow: 5px 5px 5px black;
+  box-shadow: 2px 2px 1px black;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -11,6 +11,7 @@
 
 .loginForm:hover {
   transform: translate(-10px, -10px);
+  box-shadow: 10px 10px 10px black;
 }
 
 .loginForm h1 {
