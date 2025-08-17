@@ -1,0 +1,106 @@
+.loginForm {
+  background-color: white;
+  padding: 30px 20px;
+  width: 25%;
+  box-shadow: 5px 5px 5px black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  transition: 300ms;
+}
+
+.loginForm:hover {
+  transform: translate(-10px, -10px);
+}
+
+.loginForm h1 {
+  color: blueviolet;
+}
+
+.loginForm h1 {
+  font-size: 3rem;
+  margin: 20px auto;
+}
+
+.loginForm h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.inputGroup {
+  margin: 10px auto;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: inherit;
+}
+
+.inputGroup svg {
+  font-size: 1.2rem;
+  margin: auto 10px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.inputGroup input {
+  border: none;
+  flex: 1;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.inputGroup input:focus {
+  outline: none;
+}
+
+.visibilityIcon {
+  cursor: pointer;
+}
+
+.loginButton {
+  background-color: rgba(138, 43, 226, 0.9);
+  margin: 20px auto;
+  color: white;
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  width: 90%;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 200ms ease;
+}
+
+.loginButton:hover {
+  background-color: darkviolet;
+}
+
+.forgotPassword {
+  color: dodgerblue;
+  margin: 10px auto;
+}
+
+.loginForm p {
+  text-align: center;
+  color: grey;
+}
+
+.loginForm footer {
+  border-top: 3px solid rgba(128, 128, 128, 0.3);
+  padding-top: 20px;
+  width: 100%;
+  text-align: center;
+  margin: 20px auto 0 auto;
+  color: grey;
+}
+
+.spinningCircle{
+  animation: logoSpin 1s linear infinite;
+}
+
+@keyframes logoSpin {
+from {transform: rotate(0deg)}
+  to {transform: rotate(360deg)}
+}
