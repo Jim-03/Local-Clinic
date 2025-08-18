@@ -22,11 +22,11 @@ function Sidebar({buttons}: props) {
     const [active, setActive] = useState("Dashboard");
 
     return <nav className={"sidebar"}>
-        {buttons.map(button => <button onClick={() => {
+        {buttons.map((button, key) => <button key={key} onClick={() => {
             button.buttonFunction();
             setActive(button.buttonName)
         }}
-                                       className={`button ${button.buttonName == active ? "active" : ""}`}>{button.buttonIcon} {button.buttonName}</button>)}
+                                              className={`button ${button.buttonName == active ? "active" : ""}`}>{button.buttonIcon} {button.buttonName}</button>)}
     </nav>
 }
 
