@@ -17,3 +17,80 @@ html, body {
   justify-content: center;
   align-items: center;
 }
+
+.header {
+  background-color: rgb(251, 251, 251);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #500050;
+  align-items: center;
+  padding: 0 10px;
+  border-bottom: 2px solid rgba(128, 128, 128, 0.3);
+}
+
+.account {
+  border: 1px solid rgba(80, 0, 80, 0.3);
+  border-radius: 50%;
+  background-color: white;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 200ms;
+}
+
+.account svg {
+  font-size: 1.2rem;
+}
+
+.account:hover {
+  transform: scale(1.2);
+  box-shadow: 2px 2px 2px rgba(128, 128, 128, 0.3);
+}
+
+.header h1 {
+  font-size: 2.5rem;
+}
+
+.sidebar {
+  background-color: rgb(251, 251, 251);
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  border-right: 3px solid rgba(128, 128, 128, 0.3);
+}
+
+.button {
+  width: 90%;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  color: #500050;
+  border: none;
+  border-radius: 5px;
+  margin: 20px auto;
+  padding: 10px;
+  background: none;
+  transition: 200ms;
+}
+
+.button svg {
+  font-size: 2rem;
+  margin-left: 15%;
+}
+
+.button:hover, .active {
+  transform: translateX(5px);
+  background: lavender;
+  cursor: pointer;
+}
