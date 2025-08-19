@@ -1,0 +1,125 @@
+.background {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.form {
+  background-color: rgb(245, 245, 245);
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  animation: slideIn 500ms ease;
+}
+
+.closeDiv p{
+  text-align: right;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.form h1 {
+  text-align: center;
+}
+
+.formInputGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 20px;
+}
+
+.patientDetails, .emergencyDetails, .insuranceDetails {
+  margin: 10px 0;
+  padding: 20px;
+  border-radius: inherit;
+  background-color: lavender;
+  box-shadow: 2px 2px 2px rgba(128, 128, 128, 0.3);
+}
+
+.patientDetails h2, .emergencyDetails h2, .insuranceDetails h2{
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
+.inputGroup {
+  display: grid;
+  grid-template-columns: 30% 1fr;
+}
+
+.inputGroup label {
+  font-weight: bold;
+}
+
+.inputGroup input, .inputGroup select {
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  width: 300px;
+  height: 40px;
+  border-radius: 5px;
+  align-content: center;
+  padding-left: 10%;
+  background-color: white;
+}
+
+.inputGroup input:focus, .inputGroup select:focus {
+  outline: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.buttons {
+  display: flex;
+  justify-content: right;
+  gap: 30px;
+  height: 50px;
+}
+
+.buttons button {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: 200ms;
+  box-shadow: 3px 3px 3px black;
+}
+
+.buttons button:hover {
+  cursor: pointer;
+  transform: translateY(-3px);
+  box-shadow: 5px 5px 5px black;
+}
+
+.buttons button svg {
+  font-size: 2rem;
+}
+
+.addButton {
+  background-color: #500050;
+}
+
+.updateButton {
+  background-color: blueviolet;
+}
+
+.cancelButton {
+  background-color: red;
+}
+
+@keyframes slideIn {
+  from {opacity: 0}
+  to {opacity: 1}
+}
