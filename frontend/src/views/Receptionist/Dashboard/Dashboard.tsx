@@ -15,7 +15,7 @@ interface Log {
  * It provides quick actions to add new patients, book appointments and view previously booked appointments
  */
 function Dashboard(): JSX.Element {
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [appointmentsToday, setAppointmentsToday] = useState<number>(0);
     const [completed, setCompleted] = useState<number>(0);
     const [incomplete, setIncomplete] = useState<number>(0);
