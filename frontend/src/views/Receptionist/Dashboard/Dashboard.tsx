@@ -2,12 +2,7 @@ import styles from "./Dashboard.module.css"
 import {type JSX, useEffect, useState} from "react";
 import {toast} from "react-hot-toast";
 import {FaCalendarAlt, FaCalendarCheck, FaCalendarPlus, FaCalendarTimes, FaUserPlus} from "react-icons/fa";
-
-interface Log {
-    id: number;
-    action: string;
-    time: string;
-}
+import type {Log} from "../../../Interfaces.tsx";
 import PatientForm from "../../../components/forms/patient/PatientForm.tsx";
 import Loading from "../../../components/animations/Loading.tsx";
 
