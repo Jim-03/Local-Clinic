@@ -8,6 +8,7 @@ interface Log {
     action: string;
     time: string;
 }
+import Loading from "../../../components/animations/Loading.tsx";
 
 /**
  * A view component that renders the Receptionist's dashboard
@@ -52,23 +53,27 @@ function Dashboard(): JSX.Element {
     }, []);
 
     return <div className={styles.background}>
-        {isLoading ?
-            <div className={styles.loadingDiv}><TbLoaderQuarter className={styles.loading}/><p>Loading ...</p></div> :
+        {showAddPatient && <PatientForm closeFunction={() => setShowAddPatient(false)} onSave={() => setShowAddPatient(false)}/>}
             <>
                 <div className={styles.statistics}>
                     <h3>Statistics</h3>
                     <div>
                         <section className={styles.stats}>
-                            <FaCalendarPlus/>
-                            <p>{appointmentsToday} appointments made today</p>
+                            {isLoading ? <Loading /> : <>
+                                <FaCalendarPlus/>
+                                <p>{appointmentsToday} appointments made today</p></>}
                         </section>
                         <section className={styles.stats}>
+                            {isLoading ? <Loading/> : <>
                             <FaCalendarCheck/>
                             <p>{completed} completed appointments</p>
+                            </>}
                         </section>
                         <section className={styles.stats}>
+                            {isLoading ? <Loading /> : <>
                             <FaCalendarTimes/>
                             <p>{incomplete} incomplete appointments</p>
+                            </>}
                         </section>
                     </div>
                 </div>
@@ -92,7 +97,7 @@ function Dashboard(): JSX.Element {
                         <button className={styles.quickActionButton } onClick={() => alert("Feature to be implemented soon!")}><FaCalendarAlt/> View appointments</button>
                     </div>
                 </div>
-            </>}
+            </>
     </div>
 }
 
