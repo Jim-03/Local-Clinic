@@ -22,8 +22,6 @@ public record NewPatient(
         LocalDate dateOfBirth,
         @Schema(description = "The patient's gender", implementation = Gender.class)
         Gender gender,
-        @Schema(description = "The patient's profile image", implementation = File.class)
-        File image,
         @Schema(description = "The phone number to the patient's next of kin", example = "0712345678")
         String emergencyContact,
         @Schema(description = "The name of the patient's next of kin", example = "Jane Doe")

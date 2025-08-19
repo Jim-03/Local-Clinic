@@ -95,7 +95,6 @@ public class PatientUtil {
         patient.setNationalId(dto.nationalId().trim());
         patient.setPhone(dto.phone().trim());
         patient.setUpdatedAt(LocalDateTime.now());
-        patient.setImage(dto.image().getName().trim());
         return patient;
     }
 
@@ -119,7 +118,6 @@ public class PatientUtil {
         patient.setNationalId(newData.nationalId().trim());
         patient.setPhone(newData.phone().trim());
         patient.setUpdatedAt(LocalDateTime.now());
-        patient.setImage(newData.image().getName().trim());
     }
 
     /**
