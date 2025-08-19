@@ -1,7 +1,6 @@
 import styles from "./Dashboard.module.css"
 import {type JSX, useEffect, useState} from "react";
 import {toast} from "react-hot-toast";
-import {TbLoaderQuarter} from "react-icons/tb";
 import {FaCalendarAlt, FaCalendarCheck, FaCalendarPlus, FaCalendarTimes, FaUserPlus} from "react-icons/fa";
 
 interface Log {
