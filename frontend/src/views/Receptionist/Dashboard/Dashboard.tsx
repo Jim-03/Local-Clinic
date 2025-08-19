@@ -21,6 +21,7 @@ function Dashboard(): JSX.Element {
     const [completed, setCompleted] = useState<number>(0);
     const [incomplete, setIncomplete] = useState<number>(0);
     const [logs, setLogs] = useState<Log[]>([])
+    const [showAddPatient, setShowAddPatient] = useState(false)
     const api = import.meta.env.VITE_API_URL + "/api/statistics/receptionist";
 
     function fetchStatistics(id: number): void {
