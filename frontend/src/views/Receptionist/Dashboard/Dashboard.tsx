@@ -8,6 +8,7 @@ interface Log {
     action: string;
     time: string;
 }
+import PatientForm from "../../../components/forms/patient/PatientForm.tsx";
 import Loading from "../../../components/animations/Loading.tsx";
 
 /**
@@ -93,7 +94,7 @@ function Dashboard(): JSX.Element {
                 <div className={styles.quickActions}>
                     <h3>Quick actions</h3>
                     <div>
-                        <button className={styles.quickActionButton } onClick={() => alert("Feature to be implemented soon!")}><FaUserPlus/> Add new Patient</button>
+                        <button className={styles.quickActionButton } onClick={() => setShowAddPatient(true)}><FaUserPlus/> Add new Patient</button>
                         <button className={styles.quickActionButton } onClick={() => alert("Feature to be implemented soon!")}><FaCalendarPlus/> Create an appointment</button>
                         <button className={styles.quickActionButton } onClick={() => alert("Feature to be implemented soon!")}><FaCalendarAlt/> View appointments</button>
                     </div>
