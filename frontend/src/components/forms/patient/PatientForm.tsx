@@ -64,16 +64,17 @@ function PatientForm({patient, closeFunction, onSave}: props): JSX.Element {
             body: JSON.stringify(patientData)
         }).then(async response => {
             const data = await response.json()
+
+            // Check if patent was added successfully
             if (!response.ok) {
-                toast.error("An error has occurred while adding the patient!")
-                console.warn(data)
-                return
-            } else return data
+                toast.error("Failed to add the patient!")
+                throw new Error(data.message)
+            }
+            return data
         }).then(() => {
             toast.success("Successfully added the patient")
             onSave()
         }).catch(e => {
-            toast.error("Connection error!")
             console.warn(e)
         }).finally(() => setIsSubmitting(false))
     }
@@ -104,17 +105,18 @@ function PatientForm({patient, closeFunction, onSave}: props): JSX.Element {
             body: JSON.stringify(patientData)
         }).then(async response => {
             const data = await response.json()
+
+            // Check for any errors while updating
             if (!response.ok) {
-                toast.error("An error has occurred while updating the patient!")
-                console.error(data)
+                toast.error("Failed to update the specified patient")
+                throw new Error(data.message)
             }
-            return await response.json()
+            return data
         }).then(() => {
             toast.success("Successfully updated the patient")
             onSave()
         }).catch(e => {
-            toast.error("Connection error!")
-            console.warn(e)
+            console.warn("An error occurred while updating the patient", e.message)
         }).finally(() => setIsSubmitting(false))
     }
 
