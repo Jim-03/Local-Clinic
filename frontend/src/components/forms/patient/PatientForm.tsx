@@ -98,7 +98,7 @@ function PatientForm({patient, closeFunction, onSave}: props): JSX.Element {
      */
     function updatePatient(): void {
         setIsSubmitting(true)
-        fetch(api + `/api/${patient?.id}`, {
+        fetch(api + `/api/patient/${patient?.id}`, {
             method: "PUT",
             headers: {"Content-Type": "application/json"},
             credentials: "include",
