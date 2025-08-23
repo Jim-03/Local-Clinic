@@ -1,6 +1,6 @@
 import styles from "./Login.module.css";
 import { FaCircleNotch, FaEye, FaEyeSlash, FaLock, FaUser } from "react-icons/fa";
-import { type JSX, useState } from "react";
+import { type JSX, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { toast } from "react-hot-toast";
 import { validate } from "email-validator";
@@ -23,6 +23,10 @@ function Login(): JSX.Element {
     const [password, setPassword] = useState<string | null>();
     const api = import.meta.env.VITE_API_URL;
     const nav = useNavigate();
+
+    useEffect(() => {
+        document.title = "Clinicnet | Login"
+    }, []);
 
     /**
      *  Changes the visibility of the password between true/false
