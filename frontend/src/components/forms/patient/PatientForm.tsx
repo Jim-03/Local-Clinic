@@ -159,7 +159,16 @@ function PatientForm({patient, closeFunction, onSave}: props): JSX.Element {
             return false;
         }
 
-        if (patientData.emergencyContact && !isValidPhoneNumber(patientData.emergencyContact, 'KE')) {
+        if (!patientData.emergencyContact) {
+            toast.error("Please enter the emergency number!")
+            return false;
+        }
+
+        if (!patientData.emergencyName) {
+            toast.error("Please enter the next of kin name")
+        }
+
+        if (!isValidPhoneNumber(patientData.emergencyContact, 'KE')) {
             toast.error("Please enter a valid emergency contact number");
             return false;
         }
