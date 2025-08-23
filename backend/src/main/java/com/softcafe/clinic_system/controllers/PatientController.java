@@ -1,5 +1,6 @@
 package com.softcafe.clinic_system.controllers;
 
+import com.softcafe.clinic_system.dto.patient.ListOfPatients;
 import com.softcafe.clinic_system.dto.patient.NewPatient;
 import com.softcafe.clinic_system.dto.patient.PatientDto;
 import com.softcafe.clinic_system.services.PatientService;
@@ -126,7 +127,7 @@ public class PatientController {
                     content = @Content(
                             mediaType = "application/json",
                             array = @ArraySchema(
-                                    schema = @Schema(implementation = PatientDto.class),
+                                    schema = @Schema(implementation = ListOfPatients.class),
                                     arraySchema = @Schema(description = "A list of 10 or less patient objects")
                             )
                     )
@@ -140,7 +141,7 @@ public class PatientController {
             )
     })
     @GetMapping("/page/{page}")
-    public ResponseEntity<List<PatientDto>> getByPage(
+    public ResponseEntity<ListOfPatients> getByPage(
             @Parameter(
                     description = "The page number",
                     required = true,

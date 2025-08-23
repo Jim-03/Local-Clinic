@@ -1,5 +1,6 @@
 package com.softcafe.clinic_system.services;
 
+import com.softcafe.clinic_system.dto.patient.ListOfPatients;
 import com.softcafe.clinic_system.dto.patient.NewPatient;
 import com.softcafe.clinic_system.dto.patient.PatientDto;
 import com.softcafe.clinic_system.entities.Patient;
@@ -29,9 +30,9 @@ public class PatientService {
     /**
      * Retrieves a list of patients
      * @param pageNumber The page to extract the list
-     * @return The list of patients
+     * @return An object containing a list of patients' data nad total number of expected pages
      */
-    public List<PatientDto> getByPage(int pageNumber) {
+    public ListOfPatients getByPage(int pageNumber) {
         Page<Patient> page = patientRepository.findAll(PageRequest.of(pageNumber - 1, PAGE_SIZE));
         List<Patient> patients= page.toList();
         List<PatientDto> list = new ArrayList<>();
@@ -40,7 +41,7 @@ public class PatientService {
             list.add(PatientUtil.toDto(patient));
         }
 
-        return list;
+        return new ListOfPatients(page.getTotalPages(), list);
     }
 
     /**
