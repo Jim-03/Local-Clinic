@@ -73,6 +73,7 @@ function PatientForm({patient, closeFunction, onSave}: props): JSX.Element {
             return data
         }).then(() => {
             toast.success("Successfully added the patient")
+            closeFunction()
             onSave()
         }).catch(e => {
             console.warn(e)
@@ -114,6 +115,7 @@ function PatientForm({patient, closeFunction, onSave}: props): JSX.Element {
             return data
         }).then(() => {
             toast.success("Successfully updated the patient")
+            closeFunction()
             onSave()
         }).catch(e => {
             console.warn("An error occurred while updating the patient", e.message)
