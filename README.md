@@ -173,7 +173,8 @@ Enter one of the credentials from this [table](#users)
 ![Receptionist Dashboard](docs/images/receptionist.png)
 The receptionist has the following roles in the system:
 - Adding new patients ![Patient Form](docs/images/patientForm.png)
-- Updating existing patients
+- Viewing existing patients ![View Patients](docs/images/view-patients.png)
+- Updating existing patients ![Update Patients](docs/images/update-patient-form.png)
 - Booking/Cancelling appointments
 - Handles billings and generating invoices
 
