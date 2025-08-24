@@ -153,14 +153,13 @@ public class PatientService {
      * @param email An optional email address
      * @param phone An optional phone number
      * @param nid An optional nation ID card number
-     * @param inn An optional insurance number
      * @return The patient's data or null
      * @throws ResponseStatusException BAD_REQUEST in case of null identifiers
      * @throws ResponseStatusException NOT_FOUND in case of missing patient data
      */
-    public PatientDto get(String email, String phone, String nid, String inn) {
+    public PatientDto get(String email, String phone, String nid) {
         // Check if all parameters are null
-        if (email == null && phone == null && nid == null && inn == null) {
+        if (email == null && phone == null && nid == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide at least one identifier!");
         }
 

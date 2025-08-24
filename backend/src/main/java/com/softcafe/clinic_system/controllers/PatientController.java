@@ -182,24 +182,19 @@ public class PatientController {
                     description = "Email address",
                     example = "john.doe@example.com"
             )
-            @RequestParam("email") String email,
+            @RequestParam(value = "email", required = false) String email,
             @Parameter(
                     description = "Phone number",
                     example = "+254712345678"
             )
-            @RequestParam("phone") String phone,
+            @RequestParam(value = "phone", required = false) String phone,
             @Parameter(
                     description = "National ID number",
                     example = "316353461"
             )
-            @RequestParam("nid") String nid,
-            @Parameter(
-                    description = "Insurance number",
-                    example = "SHA123"
-            )
-            @RequestParam("inn") String inn
+            @RequestParam(value = "nid", required = false) String nid
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(patientService.get(email, phone, nid, inn));
+        return ResponseEntity.status(HttpStatus.OK).body(patientService.get(email, phone, nid));
     }
 
     @Operation(summary = "Deletes a patient")
