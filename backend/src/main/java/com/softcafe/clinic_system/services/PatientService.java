@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -163,30 +164,41 @@ public class PatientService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide at least one identifier!");
         }
 
-            PatientDto dto = null;
+        PatientDto dto = null;
 
-            if (email != null) {
-                if (Util.isValidEmail(email)) {
-                    dto = PatientUtil.toDto(patientRepository.findByEmail(email).get());
-                } else {
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide a valid email address!");
+        if (email != null) {
+            if (Util.isValidEmail(email)) {
+                Optional<Patient> patient = patientRepository.findByEmail(email);
+                if (patient.isPresent()) {
+                    dto = PatientUtil.toDto(patient.get());
                 }
-            } else if (dto == null && phone != null) {
-                if (Util.isValidPhone(phone)) {
-                    dto = PatientUtil.toDto(patientRepository.findByPhone(phone).get());
-                } else {
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide a valid phone number!");
-                }
-            } else if (dto == null && nid != null) {
-                dto = PatientUtil.toDto(patientRepository.findByNationalId(nid).get());
             } else {
-                dto = PatientUtil.toDto(patientRepository.findByInsuranceNumber(inn).get());
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide a valid email address!");
             }
+        }
 
-            if (dto == null) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The specified patient wasn't found!");
+        if (dto == null && phone != null) {
+            if (Util.isValidPhone(phone)) {
+                Optional<Patient> patient = patientRepository.findByPhone(phone);
+                if (patient.isPresent()) {
+                    dto = PatientUtil.toDto(patient.get());
+                }
+            } else {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide a valid phone number!");
             }
+        }
 
-            return dto;
+        if (dto == null && nid != null) {
+            Optional<Patient> patient = patientRepository.findByNationalId(nid);
+            if (patient.isPresent()) {
+                dto = PatientUtil.toDto(patient.get());
+            }
+        }
+
+        if (dto == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The specified patient wasn't found!");
+        }
+
+        return dto;
     }
 }
