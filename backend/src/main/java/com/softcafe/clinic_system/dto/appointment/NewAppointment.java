@@ -7,6 +7,8 @@ public record NewAppointment(
         @Schema(description = "Patient's primary key", example = "1")
         Long patientId,
         @Schema(description = "Doctor's primary key", example = "2")
-        Long doctorId
+        Long doctorId,
+        @Schema(description = "The receptionist's primary key", example = "3")
+        Long receptionistId
 ) {
 }

@@ -138,25 +138,34 @@ public class AppointmentService {
     public AppointmentData add(NewAppointment dto) {
         // Check if data is provided
         Util.validateId(dto.patientId());
-        Util.validateId(dto.doctorId());
 
         // Fetch  details
         Optional<Patient> patient = patientRepository.findById(dto.patientId());
-        Optional<Staff> doctor = staffRepository.findById(dto.doctorId());
+        Optional<Staff> doctor = Optional.empty();
+        Optional<Staff> receptionist = staffRepository.findById(dto.receptionistId());
+
+        if (dto.doctorId() != 0) {
+            doctor = staffRepository.findById(dto.doctorId());
+        }
 
         // Check if they exist
         if (patient.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The specified patient doesn't exist!");
         }
 
-        if (doctor.isEmpty()) {
+        if (dto.doctorId() != 0 && doctor.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The specified doctor wasn't found!");
+        }
+
+        if (receptionist.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Kindly login to your account again!");
         }
 
         //Create an appointment object
         Appointment appointment = new Appointment();
         appointment.setPatient(patient.get());
-        appointment.setDoctor(doctor.get());
+        appointment.setDoctor(dto.doctorId() == 0 ? null : doctor.get());
+        appointment.setReceptionist(receptionist.get());
         appointment.setStatus(AppointmentStatus.PENDING);
 
         AppointmentData appointmentData = AppointmentUtil.toDto(appointmentRepository.save(appointment));
