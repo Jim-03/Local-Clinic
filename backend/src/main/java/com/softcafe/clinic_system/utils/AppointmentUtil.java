@@ -15,7 +15,7 @@ public class AppointmentUtil {
         return new AppointmentData(
                 appointment.getId(),
                 PatientUtil.toDto(appointment.getPatient()),
-                StaffUtil.toDto(appointment.getDoctor()),
+                appointment.getDoctor() == null ? null : StaffUtil.toDto(appointment.getDoctor()),
                 appointment.getStatus(),
                 appointment.getCreatedAt(),
                 appointment.getUpdatedAt()
