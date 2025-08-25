@@ -5,6 +5,7 @@ import {FaCalendarAlt, FaCalendarCheck, FaCalendarPlus, FaCalendarTimes, FaUserP
 import type {Log} from "../../../Interfaces.tsx";
 import PatientForm from "../../../components/forms/patient/PatientForm.tsx";
 import Loading from "../../../components/animations/Loading.tsx";
+import AppointmentForm from '../../../components/forms/appointmentForm/AppointmentForm.tsx';
 
 /**
  * A view component that renders the Receptionist's dashboard
@@ -18,6 +19,7 @@ function Dashboard(): JSX.Element {
     const [incomplete, setIncomplete] = useState<number>(0);
     const [logs, setLogs] = useState<Log[]>([])
     const [showAddPatient, setShowAddPatient] = useState(false)
+    const [showAppointmentForm, setShowAppointmentForm] = useState(false);
     const api = import.meta.env.VITE_API_URL + "/api/statistics/receptionist";
 
     function fetchStatistics(id: number): void {
@@ -51,6 +53,7 @@ function Dashboard(): JSX.Element {
 
     return <div className={styles.background}>
         {showAddPatient && <PatientForm closeFunction={() => setShowAddPatient(false)} onSave={() => setShowAddPatient(false)}/>}
+        {showAppointmentForm && <AppointmentForm closeFunction={() => setShowAppointmentForm(false)}/>}
             <>
                 <div className={styles.statistics}>
                     <h3>Statistics</h3>
@@ -90,7 +93,7 @@ function Dashboard(): JSX.Element {
                     <h3>Quick actions</h3>
                     <div>
                         <button className={styles.quickActionButton } onClick={() => setShowAddPatient(true)}><FaUserPlus/> Add new Patient</button>
-                        <button className={styles.quickActionButton } onClick={() => alert("Feature to be implemented soon!")}><FaCalendarPlus/> Create an appointment</button>
+                        <button className={styles.quickActionButton } onClick={() => setShowAppointmentForm(true)}><FaCalendarPlus/> Create an appointment</button>
                         <button className={styles.quickActionButton } onClick={() => alert("Feature to be implemented soon!")}><FaCalendarAlt/> View appointments</button>
                     </div>
                 </div>

@@ -1,0 +1,143 @@
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.form {
+  background-color: white;
+  width: 50%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 3px rgba(80, 0, 80, 0.3);
+}
+
+.closeButton {
+  position: relative;
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  margin-left: auto;
+  background-color: rgba(128, 128, 128, 0.2);
+  border-radius: 50%;
+  text-align: center;
+  align-content: center;
+  justify-items: center;
+}
+
+.closeButton:hover {
+  cursor: pointer;
+  background: rgba(128, 128, 128);
+}
+
+.form h1, .form h2 {
+  text-align: center;
+  text-decoration: underline;
+}
+
+
+.searchForPatient, .patientDetails, .doctorDetails {
+  display: flex;
+  border-radius: 5px;
+  margin: 10px 0;
+  background-color: rgba(230, 230, 250, 0.5);
+  padding: 30px;
+}
+
+.searchForPatient select {
+  background-color: white;
+  margin-right: 10px;
+}
+
+.searchForPatient select, .searchForPatient input {
+  border-radius: inherit;
+  padding-left: 10px;
+  height: 40px;
+  border: 1px solid rgba(80, 0, 80, 0.2);
+}
+
+.searchForPatient input {
+  flex: 0.7;
+}
+
+.searchForPatient button {
+  background-color: #500050;
+  color: white;
+  border-radius: inherit;
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+  border: none;
+  font-weight: bold;
+}
+
+.patientDetails div {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.patientDetails label, .doctorDetails label {
+  margin-right: 20px;
+}
+
+.patientDetails input, .doctorDetails select {
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid rgba(80, 0, 80, 0.3);
+  padding-left: 20px;
+  background-color: white;
+  width: 70%;
+}
+
+.doctorDetails div {
+  width: 100%;
+}
+
+.consultationFee, .consultationFee input {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.consultationFee input {
+  color: green;
+  border: none;
+  padding-left: 20px;
+  margin: 20px 0;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: right;
+  gap: 30px;
+}
+
+.actionButtons button {
+  height: 40px;
+  width: 150px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 5px;
+}
+
+.bookButton {
+  background-color: green;
+}
+
+.cancelButton {
+  background-color: red;
+}

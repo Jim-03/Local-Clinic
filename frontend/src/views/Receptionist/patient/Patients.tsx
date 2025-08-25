@@ -8,6 +8,7 @@ import { FcCalendar } from "react-icons/fc";
 import { toast } from "react-hot-toast";
 import { validate } from "email-validator";
 import { isValidPhoneNumber } from "libphonenumber-js";
+import AppointmentForm from '../../../components/forms/appointmentForm/AppointmentForm.tsx';
 
 /**
  * A component that render a view of the patients in the system
@@ -24,7 +25,7 @@ function Patients(): JSX.Element {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchParameter, setSearchParameter] = useState<"email" | "phone" | "nid">("email");
     const [showAddForm, setShowAddForm] = useState(false);
-    // const [bookingPatient, setBookingPatient] = useState<Patient | null> (null);
+  const [ showBookingForm, setShowBookingForm ] = useState(false);
     const [patientData, setPatientData] = useState<Patient>();
     const [editPatient, setEditPatient] = useState(false);
     const api: string = import.meta.env.VITE_API_URL;
@@ -116,6 +117,7 @@ function Patients(): JSX.Element {
         }}/>}
         {editPatient &&
           <PatientForm patient={patientData} closeFunction={() => setEditPatient(false)} onSave={fetchPatients}/>}
+      {showBookingForm && <AppointmentForm patient={patientData} closeFunction={() => {setPatientData(undefined); setShowBookingForm(false)}}/>}
         <div className={styles.header}>
             <div className={styles.searchGroup}>
                 <select value={searchParameter}
@@ -165,7 +167,10 @@ function Patients(): JSX.Element {
                                           setEditPatient(true);
                                       }}/>
                                       <FcCalendar title={"Book An appointment"}
-                                                  onClick={() => alert("To be implemented soon!")}/>
+                                                  onClick={() => {
+                                                    setPatientData(patient)
+                                                    setShowBookingForm(true)
+                                                    }}/>
                                   </div>
                               </td>
                           </tr>)}
