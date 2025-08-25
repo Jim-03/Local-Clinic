@@ -50,7 +50,7 @@ public class StaffUtil {
         staff.setPassword(dto.password());
         staff.setRole(dto.role());
         staff.setLastLogin(LocalDateTime.now());
-        staff.setStatus(StaffStatus.OFF);
+        staff.setStatus(dto.staffStatus());
         return staff;
     }
 
